@@ -71,7 +71,6 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:2.27"
     annotationProcessor "com.google.dagger:dagger-compiler:2.27"
 
-
     // reactive
     implementation "io.reactivex.rxjava3:rxjava:3.0.6"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
@@ -90,6 +89,11 @@ dependencies {
 
     //openid
     implementation 'net.openid:appauth:0.7.0'
+
+    // Custom beautiful view
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation "androidx.cardview:cardview:1.0.0"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.annotation:annotation:1.0.2'

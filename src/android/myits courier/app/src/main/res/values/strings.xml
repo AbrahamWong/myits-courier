@@ -7,4 +7,23 @@
     <string name="no_internet_connection">Tidak ada koneksi internet!</string>
     <string name="retry">Ulangi</string>
 
+    <!-- Sample Text -->
+    <!-- MainActivity -->
+    <string name="welcome_message">Selamat datang</string>
+    <string name="sample_name">Adyatma Mahavir Alister Bagaskara</string>
+    <string name="zone">Zona</string>
+    <string name="zone_code">A</string>
+
+    <!-- list_unit -->
+    <string name="sample_departemen">Tata Usaha Departemen X</string>
+    <string name="external_package_qty">%1$d paket eksternal</string>
+    <string name="internal_package_qty">%1$d pengantaran paket internal</string>
+    <string name="pickup_internal_qty">%1$d penjemputan paket internal</string>
+
+    <!-- list_paket -->
+    <string name="sample_paket">Tipe Paket</string>
+    <string name="package_priority">Prioritas: %1$d</string>
+    <string name="package_status">Status: %1$s</string>
+    <string name="package_weight">Berat: %1$.3f</string>
+    <string name="package_receipt_number">Nomor Resi: %1$s</string>
 </resources>

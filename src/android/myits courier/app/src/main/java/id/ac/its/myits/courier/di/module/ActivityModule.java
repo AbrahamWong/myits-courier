@@ -8,6 +8,9 @@ import dagger.Module;
 import dagger.Provides;
 import id.ac.its.myits.courier.di.ActivityContext;
 import id.ac.its.myits.courier.di.PerActivity;
+import id.ac.its.myits.courier.ui.detail.DetailMvpPresenter;
+import id.ac.its.myits.courier.ui.detail.DetailMvpView;
+import id.ac.its.myits.courier.ui.detail.DetailPresenter;
 import id.ac.its.myits.courier.ui.login.LoginMvpPresenter;
 import id.ac.its.myits.courier.ui.login.LoginMvpView;
 import id.ac.its.myits.courier.ui.login.LoginPresenter;
@@ -59,6 +62,13 @@ public class ActivityModule {
 
     MainMvpPresenter<MainMvpView> provideMainPresenter(
             MainPresenter<MainMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    DetailMvpPresenter<DetailMvpView> provideDetailPresenter(
+            DetailPresenter<DetailMvpView> presenter){
         return presenter;
     }
 }
