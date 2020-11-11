@@ -5,6 +5,6 @@ import id.ac.its.myits.courier.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
     void openDetailActivity(Unit unit);
-    void scanQR();
+    void openQRActivity();
     void logOut();
 }

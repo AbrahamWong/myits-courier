@@ -10,19 +10,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.adapter.MainAdapter;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.detail.DetailActivity;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
+import id.ac.its.myits.courier.ui.qr.QrActivity;
 import id.ac.its.myits.courier.utils.AuthStateManager;
 
 
@@ -33,6 +37,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @BindView(R.id.rv_unit)
     RecyclerView rvUnit;
+
+    @BindView(R.id.fab_qr)
+    FloatingActionButton fabQR;
 
     AuthStateManager stateManager;
 
@@ -66,9 +73,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_qr:
-                scanQR();
-                break;
             case R.id.menu_logout:
                 logOut();
                 break;
@@ -85,9 +89,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         startActivity(detailIntent);
     }
 
-    @Override
-    public void scanQR() {
-
+    @OnClick(R.id.fab_qr) @Override
+    public void openQRActivity() {
+        Intent qrIntent = new Intent(this, QrActivity.class);
+        startActivity(qrIntent);
     }
 
     @Override

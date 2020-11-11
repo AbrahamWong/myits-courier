@@ -17,6 +17,9 @@ import id.ac.its.myits.courier.ui.login.LoginPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
 import id.ac.its.myits.courier.ui.main.MainPresenter;
+import id.ac.its.myits.courier.ui.qr.QrMvpPresenter;
+import id.ac.its.myits.courier.ui.qr.QrMvpView;
+import id.ac.its.myits.courier.ui.qr.QrPresenter;
 import id.ac.its.myits.courier.utils.rx.CourierAppScheduler;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
@@ -69,6 +72,13 @@ public class ActivityModule {
     @PerActivity
     DetailMvpPresenter<DetailMvpView> provideDetailPresenter(
             DetailPresenter<DetailMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    QrMvpPresenter<QrMvpView> provideQrPresenter(
+            QrPresenter<QrMvpView> presenter){
         return presenter;
     }
 }

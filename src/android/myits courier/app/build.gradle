@@ -56,10 +56,10 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.0.0'
 
-    //logger
+    // logger
     implementation "com.jakewharton.timber:timber:4.7.1"
 
-    //Gson
+    // Gson
     implementation "com.google.code.gson:gson:2.8.6"
 
     // network
@@ -83,12 +83,11 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics:17.5.0"
     implementation "com.google.firebase:firebase-messaging:20.2.4"
 
-    // code generator for view
-    implementation 'com.jakewharton:butterknife:10.2.3'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
-
-    //openid
+    // openid
     implementation 'net.openid:appauth:0.7.0'
+
+    // QR Code scanner
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 
     // Custom beautiful view
     implementation 'com.google.android.material:material:1.2.1'

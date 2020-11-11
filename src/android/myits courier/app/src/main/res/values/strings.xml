@@ -8,7 +8,7 @@
     <string name="retry">Ulangi</string>
 
     <!-- Sample Text -->
-    <!-- MainActivity -->
+    <!-- QrActivity -->
     <string name="welcome_message">Selamat datang</string>
     <string name="sample_name">Adyatma Mahavir Alister Bagaskara</string>
     <string name="zone">Zona</string>
