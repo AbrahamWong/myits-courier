@@ -9,6 +9,7 @@ import com.androidnetworking.interceptors.HttpLoggingInterceptor;
 import javax.inject.Inject;
 
 import id.ac.its.myits.courier.data.DataManager;
+import id.ac.its.myits.courier.data.network.model.interceptor.RefreshTokenInterceptor;
 import id.ac.its.myits.courier.di.component.ApplicationComponent;
 import id.ac.its.myits.courier.di.component.DaggerApplicationComponent;
 import id.ac.its.myits.courier.di.module.ApplicationModule;
@@ -33,7 +34,7 @@ public class CourierApp extends Application {
 
         AppLogger.init();
 
-        /*OkHttpClient okHttpClient = new OkHttpClient()
+        OkHttpClient okHttpClient = new OkHttpClient()
                 .newBuilder()
                 .addInterceptor(new RefreshTokenInterceptor(dataManager,
                         new RefreshTokenInterceptor.RefreshTokenErrorListener() {
@@ -48,7 +49,7 @@ public class CourierApp extends Application {
                         }))
                 .build();
 
-        AndroidNetworking.initialize(getApplicationContext(), okHttpClient);*/
+        AndroidNetworking.initialize(getApplicationContext(), okHttpClient);
 
         if (BuildConfig.DEBUG) {
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);

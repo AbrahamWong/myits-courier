@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.network.model.courier.UserInfo;
+import id.ac.its.myits.courier.data.network.model.token.TokenResponse;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
 import id.ac.its.myits.courier.utils.AppLogger;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
@@ -20,19 +21,18 @@ public class LoginPresenter <V extends LoginMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
-    @Override
-    public void onPersistAccessToken(String accessToken) {
-        getDataManager().setAccessToken(accessToken);
-
-        getDataManager().updateApiHeader(accessToken);
-    }
+    private UserInfo userInfo;
 
     @Override
-    public void onUserCheck() {
-        if (isUserLoggedIn()) {
-            AppLogger.d("User is logged in!");
-            getMvpView().checkAuthorized();
-        }
+    public void onPersistAccessToken(TokenResponse tokenResponse) {
+        getDataManager().setAccessToken(tokenResponse.getAccessToken());
+        getDataManager().setRefreshToken(tokenResponse.getRefreshToken());
+
+        //AppLogger.d("accesstoken " + tokenResponse.getAccessToken());
+        //AppLogger.d("refreshtoken " + tokenResponse.getRefreshToken());
+        getDataManager().updateApiHeader(tokenResponse.getAccessToken());
+        onPersistUser();
+        getMvpView().openMainActivity();
     }
 
     @Override
@@ -45,6 +45,7 @@ public class LoginPresenter <V extends LoginMvpView> extends BasePresenter<V>
                     @Override
                     public void accept(UserInfo userInfo) throws Exception {
                         AppLogger.d("AppAuthSample "+ "userinfo " + userInfo.getPreferredUsername());
+                        onPersistUser();
                         getMvpView().openMainActivity();
                         getMvpView().hideLoading();
                     }
@@ -57,5 +58,11 @@ public class LoginPresenter <V extends LoginMvpView> extends BasePresenter<V>
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onPersistUser() {
+        setActiveUserId(2020); //ini hardcode
+        AppLogger.d("Active user id: %s | %s", getDataManager().getActiveUserId(), getActiveUserId());
     }
 }

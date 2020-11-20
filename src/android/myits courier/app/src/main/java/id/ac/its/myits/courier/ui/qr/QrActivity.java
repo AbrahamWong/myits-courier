@@ -20,13 +20,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
-import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
-import id.ac.its.myits.courier.ui.detail.DetailActivity;
-import id.ac.its.myits.courier.ui.login.LoginActivity;
-import id.ac.its.myits.courier.utils.AuthStateManager;
 
 
 public class QrActivity extends BaseActivity implements QrMvpView {

@@ -1,105 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".ui.main.MainActivity"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    tools:context=".ui.main.MainActivity">
 
-    <LinearLayout
+    <!-- content container -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/container_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="?attr/actionBarSize"
+        android:scrollbars="none">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/stuber" />
+        <!-- Scrollable content -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome_message" />
-
-            <TextView
-                android:id="@+id/tv_nama_caraka"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sample_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/zone"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/tv_zona_caraka"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/zone_code"
-                android:textAlignment="gravity"
-                android:textSize="48sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <!-- bottom appbar -->
+    <com.google.android.material.bottomappbar.BottomAppBar
+        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+        android:layout_width="match_parent"
+        android:id="@+id/bottomAppBar"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="end"
+        android:layout_height="wrap_content" />
+    <!-- bottom navigation container -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_unit"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+        <!-- bottom navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/list_unit" />
-
-        <FrameLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="12dp"
-            android:layout_gravity="end|bottom">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="8dp"
-                android:id="@+id/fab_qr"
-                android:src="@drawable/ic_qr_code_scanner_white_48"
-                app:fabCustomSize="84dp"
-                app:maxImageSize="48dp"
-                android:background="@android:color/holo_blue_bright"/>
-
-        </FrameLayout>
-
-
+            android:layout_height="match_parent"
+            android:layout_marginEnd="98dp"
+            android:background="@null"
+            app:itemIconTint="@color/bottom_nav_item"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation" />
     </FrameLayout>
 
+    <!-- fab camera scan -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/Widget.Design.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/bottomAppBar"
+        android:contentDescription="Scan Camera"
+        android:src="@drawable/ic_scan_fab_24"
+        app:layout_anchorGravity="end" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

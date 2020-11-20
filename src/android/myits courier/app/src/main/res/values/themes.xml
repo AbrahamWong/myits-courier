@@ -1,0 +1,69 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MyITSCourier" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorWhite</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <!-- Customized theme here. -->
+        <item name="fontFamily">@font/dm_sans_family</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MyITSCourier.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MyITSCourier.Body2</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MyITSCourier.Headline4</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MyITSCourier.Caption</item>
+        <item name="materialButtonStyle">@style/Widget.MyITSCourier.Button</item>
+    </style>
+
+    <!-- TextAppearance Body 1. -->
+    <style name="TextAppearance.MyITSCourier.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <!-- TextAppearance Body 2. -->
+    <style name="TextAppearance.MyITSCourier.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <!-- TextAppearance Headline 4. -->
+    <style name="TextAppearance.MyITSCourier.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- TextAppearance Caption -->
+    <style name="TextAppearance.MyITSCourier.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="lineHeight">24dp</item>
+    </style>
+
+    <!-- TextAppearance Button. -->
+    <style name="TextAppearance.MyITSCourier.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Button. -->
+    <style name="Widget.MyITSCourier.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyITSCourier.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyITSCourier.Button</item>
+    </style>
+
+    <!-- Button Style Overlay. -->
+    <style name="ThemeOverlay.MyITSCourier.Button" parent="">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="elevation">0dp</item>
+    </style>
+</resources>

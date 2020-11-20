@@ -14,13 +14,13 @@ import javax.inject.Inject;
 import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.db.model.Paket;
 import id.ac.its.myits.courier.data.db.model.Unit;
-import id.ac.its.myits.courier.data.db.model.Zona;
+import id.ac.its.myits.courier.data.network.model.courier.UserInfo;
 import id.ac.its.myits.courier.ui.adapter.MainAdapter;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
-import id.ac.its.myits.courier.ui.detail.DetailActivity;
-import id.ac.its.myits.courier.utils.AuthStateManager;
+import id.ac.its.myits.courier.utils.AppLogger;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 
 public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
@@ -96,14 +96,24 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void onLoggingOut(AuthStateManager stateManager) {
-        AuthState currentState = stateManager.getCurrent();
-        AuthState clearedState = new AuthState(currentState.getAuthorizationServiceConfiguration());
-
-        if (currentState.getLastAuthorizationResponse() != null) {
-            clearedState.update(currentState.getLastRegistrationResponse());
-        }
-        stateManager.replace(clearedState);
+    public void onLoggingOut() {
+        getDataManager().clearSharedPreferences();
+        getMvpView().openLoginActivity();
     }
 
+    @Override
+    public void test() {
+        getDataManager().doGetUserInfo()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(userInfo -> AppLogger.d("AppAuthSample "+ "userinfo " + userInfo.getPreferredUsername()), new Consumer<Throwable>(){
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (getMvpView().isNetworkConnected()) {
+                            getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
+                            getMvpView().hideLoading();
+                        }
+                    }
+                });
+    }
 }

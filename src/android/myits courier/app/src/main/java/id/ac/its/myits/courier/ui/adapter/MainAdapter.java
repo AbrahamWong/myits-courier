@@ -40,14 +40,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @NonNull
     @Override
     public MainAdapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_unit, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.unit_list, parent, false);
         return new MainViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainAdapter.MainViewHolder holder, final int position) {
         // Lanjutin nanti dong, bingung moment
-        holder.bind((Unit) presenter.getUnit().get(position));
+//        holder.bind((Unit) presenter.getUnit().get(position));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,45 +63,45 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_nama_tata_usaha)
-        TextView tvTataUsaha;
-
-        @BindView(R.id.tv_jumlah_eksternal)
-        TextView tvEksternal;
-
-        @BindView(R.id.tv_jumlah_internal)
-        TextView tvInternal;
-
-        @BindView(R.id.tv_jumlah_penjemputan)
-        TextView tvPenjemputanInternal;
+//        @BindView(R.id.tv_nama_tata_usaha)
+//        TextView tvTataUsaha;
+//
+//        @BindView(R.id.tv_jumlah_eksternal)
+//        TextView tvEksternal;
+//
+//        @BindView(R.id.tv_jumlah_internal)
+//        TextView tvInternal;
+//
+//        @BindView(R.id.tv_jumlah_penjemputan)
+//        TextView tvPenjemputanInternal;
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(Unit unit) {
-            tvTataUsaha.setText(unit.getNamaUnit());
-
-            ArrayList<Paket> daftarPaket = unit.getDaftarPaket();
-            int eksternal = 0, pengirimanInternal = 0, penjemputanInternal = 0;
-            for (Paket paket : daftarPaket) {
-                switch (paket.getTipePaket()) {
-                    case PENGIRIMAN_EKSTERNAL:
-                        eksternal++;
-                        break;
-                    case PENGIRIMAN_INTERNAL:
-                        pengirimanInternal++;
-                        break;
-                    case PENJEMPUTAN_INTERNAL:
-                        penjemputanInternal++;
-                        break;
-                }
-            }
-
-            tvEksternal.setText(itemView.getResources().getString(R.string.external_package_qty, eksternal));
-            tvInternal.setText(itemView.getResources().getString(R.string.internal_package_qty, pengirimanInternal));
-            tvPenjemputanInternal.setText(itemView.getResources().getString(R.string.pickup_internal_qty, penjemputanInternal));
-        }
+//        void bind(Unit unit) {
+//            tvTataUsaha.setText(unit.getNamaUnit());
+//
+//            ArrayList<Paket> daftarPaket = unit.getDaftarPaket();
+//            int eksternal = 0, pengirimanInternal = 0, penjemputanInternal = 0;
+//            for (Paket paket : daftarPaket) {
+//                switch (paket.getTipePaket()) {
+//                    case PENGIRIMAN_EKSTERNAL:
+//                        eksternal++;
+//                        break;
+//                    case PENGIRIMAN_INTERNAL:
+//                        pengirimanInternal++;
+//                        break;
+//                    case PENJEMPUTAN_INTERNAL:
+//                        penjemputanInternal++;
+//                        break;
+//                }
+//            }
+//
+//            tvEksternal.setText(itemView.getResources().getString(R.string.external_package_qty, eksternal));
+//            tvInternal.setText(itemView.getResources().getString(R.string.internal_package_qty, pengirimanInternal));
+//            tvPenjemputanInternal.setText(itemView.getResources().getString(R.string.pickup_internal_qty, penjemputanInternal));
+//        }
     }
 }

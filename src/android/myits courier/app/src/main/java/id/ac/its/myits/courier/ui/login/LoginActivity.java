@@ -1,7 +1,6 @@
 package id.ac.its.myits.courier.ui.login;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.openid.appauth.AuthState;
@@ -31,7 +29,6 @@ import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
-import id.ac.its.myits.courier.utils.AuthStateManager;
 
 public class LoginActivity extends BaseActivity implements LoginMvpView {
 
@@ -41,18 +38,18 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @BindView(R.id.button_login)
     Button buttonLogin;
 
-    private final String AUTH_ENDPOINT = BuildConfig.DEV_MYITS_URL + "/authorize";
-    private final String TOKEN_ENDPOINT = BuildConfig.DEV_MYITS_URL + "/token";
+    private final String AUTH_ENDPOINT = BuildConfig.MYITS_URL + "/authorize";
+    private final String TOKEN_ENDPOINT = BuildConfig.MYITS_URL + "/token";
     private final Uri REDIRECT_URI = Uri.parse(BuildConfig.REDIRECT_URI);
     private final String CLIENT_ID = BuildConfig.CLIENT_ID;
     public static final String LOG_TAG = "AppAuthSample";
 
     private int RC_AUTH = 100;
     AuthorizationService mAuthService;
-    AuthStateManager mStateManager;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
+        intent.setAction("id.ac.its.myits.courier.MAIN");
         return intent;
     }
 
@@ -69,14 +66,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mPresenter.onAttach(LoginActivity.this);
 
         mAuthService = new AuthorizationService(this);
-        mStateManager= AuthStateManager.getInstance(this);
 
         setUp();
     }
 
     @Override
     protected void setUp() {
-        mPresenter.onUserCheck();
+//        mPresenter.onUserCheck();
     }
 
     @OnClick(R.id.button_login) void onLoginClick(View v){
@@ -102,8 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                         REDIRECT_URI); // the redirect URI to which the auth response is sent
 
         AuthorizationRequest authRequest = authRequestBuilder
-                .setScope("profile openid")
-                .setPrompt("login")
+                .setScope("profile")
                 .build();
 
         Intent authIntent = mAuthService.getAuthorizationRequestIntent(authRequest);
@@ -119,7 +114,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
             if (resp != null) {
                 mAuthService = new AuthorizationService(this);
-                mStateManager.updateAfterAuthorization(resp,ex);
 
                 mAuthService.performTokenRequest(
                         resp.createTokenExchangeRequest(),
@@ -128,10 +122,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                                     TokenResponse resp, AuthorizationException ex) {
                                 if (resp != null) {
                                     // exchange succeeded
-                                    mStateManager.updateAfterTokenResponse(resp,ex);
                                     AppLogger.d(LOG_TAG + " access token " + resp.accessToken);
-                                    mPresenter.onPersistAccessToken(resp.accessToken);
-                                    mPresenter.onLoginSuccesful();
+                                    AppLogger.d(LOG_TAG + " refresh token " + resp.refreshToken);
+                                    id.ac.its.myits.courier.data.network.model.token.TokenResponse tokenResponse = new id.ac.its.myits.courier.data.network.model.token.TokenResponse();
+                                    tokenResponse.setAccessToken(resp.accessToken);
+                                    tokenResponse.setRefreshToken(resp.refreshToken);
+                                    mPresenter.onPersistAccessToken(tokenResponse);
+//                                    mPresenter.onLoginSuccesful();
 
 
                                 } else {
@@ -148,21 +145,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         } else {
             // ...
         }
-
-        if (mStateManager.getCurrent().isAuthorized()){
-
-            AppLogger.d(LOG_TAG + "Done");
-            mStateManager.getCurrent().performActionWithFreshTokens(mAuthService, new AuthState.AuthStateAction() {
-                @Override
-                public void execute(@Nullable String accessToken, @Nullable String idToken, @Nullable AuthorizationException ex) {
-                    if (accessToken!=null){
-                        AppLogger.d(LOG_TAG + "IS AUTHORIZED " + accessToken);
-                        mPresenter.onPersistAccessToken(accessToken);
-                        mPresenter.onLoginSuccesful();
-                    }
-                }
-            });
-        }
     }
 
     @Override
@@ -174,29 +156,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     }
 
     @Override
-    public void checkAuthorized() {
-        if (mStateManager.getCurrent().isAuthorized()){
-            AppLogger.d(LOG_TAG + "Done");
-            mStateManager.getCurrent().performActionWithFreshTokens(mAuthService, new AuthState.AuthStateAction() {
-                @Override
-                public void execute(@Nullable String accessToken, @Nullable String idToken, @Nullable AuthorizationException ex) {
-                    if (accessToken!=null){
-                        AppLogger.d(LOG_TAG + "IS AUTHORIZED " + accessToken);
-                        mPresenter.onPersistAccessToken(accessToken);
-                        mPresenter.onLoginSuccesful();
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this, "Sesi berakhir, harap melakukan login lagi", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
     protected void onDestroy() {
-        mAuthService.dispose();
-        mAuthService = null;
+//        mAuthService.dispose();
+//        mAuthService = null;
         super.onDestroy();
     }
 }

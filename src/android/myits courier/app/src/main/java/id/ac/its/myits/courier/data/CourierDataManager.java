@@ -2,12 +2,16 @@ package id.ac.its.myits.courier.data;
 
 import android.content.Context;
 
+import com.androidnetworking.common.ANResponse;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import id.ac.its.myits.courier.data.network.ApiHeader;
 import id.ac.its.myits.courier.data.network.ApiHelper;
 import id.ac.its.myits.courier.data.network.model.courier.UserInfo;
+import id.ac.its.myits.courier.data.network.model.token.TokenRequest;
+import id.ac.its.myits.courier.data.network.model.token.TokenResponse;
 import id.ac.its.myits.courier.data.pref.PreferencesHelper;
 import id.ac.its.myits.courier.di.ApplicationContext;
 import io.reactivex.Observable;
@@ -160,5 +164,10 @@ public class CourierDataManager implements DataManager {
     @Override
     public Observable<UserInfo> doGetUserInfo() {
         return mApiHelper.doGetUserInfo();
+    }
+
+    @Override
+    public ANResponse<TokenResponse> doSyncPostRefreshToken(TokenRequest.RefreshTokenRequest request) {
+        return mApiHelper.doSyncPostRefreshToken(request);
     }
 }

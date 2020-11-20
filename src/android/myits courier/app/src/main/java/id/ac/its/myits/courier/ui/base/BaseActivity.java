@@ -120,7 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity
         TextView textView = (TextView) sbView
                 //.findViewById(android.support.design.R.id.snackbar_text);
             .findViewById(R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+        textView.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         snackbar.show();
     }
 

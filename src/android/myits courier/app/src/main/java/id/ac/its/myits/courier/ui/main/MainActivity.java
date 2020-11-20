@@ -1,17 +1,16 @@
 package id.ac.its.myits.courier.ui.main;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -22,12 +21,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.Unit;
-import id.ac.its.myits.courier.ui.adapter.MainAdapter;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.detail.DetailActivity;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
+import id.ac.its.myits.courier.ui.main.fragment.history.HistoryFragment;
+import id.ac.its.myits.courier.ui.main.fragment.home.HomeFragment;
+import id.ac.its.myits.courier.ui.main.fragment.profile.ProfileFragment;
 import id.ac.its.myits.courier.ui.qr.QrActivity;
-import id.ac.its.myits.courier.utils.AuthStateManager;
 
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -35,13 +35,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
 
-    @BindView(R.id.rv_unit)
-    RecyclerView rvUnit;
-
-    @BindView(R.id.fab_qr)
+    @BindView(R.id.fab)
     FloatingActionButton fabQR;
 
-    AuthStateManager stateManager;
+    @BindView(R.id.bottomNavigation)
+    BottomNavigationView bottomNavigation;
+
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,23 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         setUp();
 
-        stateManager = AuthStateManager.getInstance(this);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        makeCurrentFragment(new HomeFragment());
+                        return true;
+                    case R.id.history:
+                        makeCurrentFragment(new HistoryFragment());
+                        return true;
+                    case R.id.profile:
+                        makeCurrentFragment(new ProfileFragment());
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -60,7 +79,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         setUnBinder(ButterKnife.bind(this));
 
         mPresenter.onAttach(MainActivity.this);
-        mPresenter.plugRecycler(rvUnit);
+        // mPresenter.plugRecycler(rvUnit);
+        // mPresenter.test()
+
+        makeCurrentFragment(new HomeFragment());
     }
 
     @Override
@@ -89,7 +111,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         startActivity(detailIntent);
     }
 
-    @OnClick(R.id.fab_qr) @Override
+    @OnClick(R.id.fab) @Override
     public void openQRActivity() {
         Intent qrIntent = new Intent(this, QrActivity.class);
         startActivity(qrIntent);
@@ -97,9 +119,23 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void logOut() {
-        mPresenter.onLoggingOut(stateManager);
+        // mPresenter.onLoggingOut(stateManager);
 
         startActivity(LoginActivity.getStartIntent(this));
         finish();
+    }
+
+    @Override
+    public void makeCurrentFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container_layout, fragment)
+                .commit();
+    }
+
+    @Override
+    public void openLoginActivity() {
+        Intent intent = LoginActivity.getStartIntent(getApplicationContext());
+        startActivity(intent);
     }
 }
