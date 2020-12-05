@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="26dp"
-        android:text="@string/nama_kamu"
+        android:text="@string/user_name"
         app:layout_constraintStart_toEndOf="@id/profilePict"
         app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
 
@@ -122,7 +122,7 @@
         android:layout_marginTop="0dp"
         android:textAllCaps="false"
         android:layout_marginEnd="16dp"
-        android:text="@string/logout_account"
+        android:text="@string/logout"
         android:textAlignment="viewStart"
         android:textColor="@color/colorBlack"
         app:icon="@drawable/ic_circle_logout"

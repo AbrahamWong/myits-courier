@@ -5,12 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInfo {
     @Expose
+    @SerializedName("name")
+    private String username;
+
+    @Expose
     @SerializedName("sub")
     private String sub;
 
     @Expose
     @SerializedName("preferred_username")
     private String preferredUsername;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getSub() {
         return sub;

@@ -4,10 +4,12 @@
     package="id.ac.its.myits.courier">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".CourierApp"
@@ -63,6 +65,11 @@
                 <data android:scheme="id.ac.its.myits.courier" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.history.HistoryDetailActivity" />
+        <activity android:name=".ui.qr.QrActivity" />
+        <activity android:name=".ui.job.JobActivity" />
+        <activity android:name=".ui.joblist.JobListActivity" />
+        <activity android:name=".ui.jobstatus.JobStatusActivity" />
     </application>
 
 </manifest>

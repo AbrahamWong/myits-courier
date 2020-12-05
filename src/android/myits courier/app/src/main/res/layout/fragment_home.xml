@@ -6,33 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.fragment.home.HomeFragment">
 
-
+    <!-- home header -->
     <TextView
         android:id="@+id/homeGreeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Halo,"
+        android:text="@string/home_greeting"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- home header: user name-->
     <TextView
-        android:id="@+id/homeName"
+        android:id="@+id/homeNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
-        android:text="@string/nama_kamu"
+        android:text="@string/user_name"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
         android:textStyle="normal|bold"
         app:layout_constraintStart_toEndOf="@+id/homeGreeting"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/homeSubGreeting"
@@ -40,10 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Semoga harimu menyenangkan!"
-        app:layout_constraintBottom_toTopOf="@+id/view"
+        android:text="@string/home_greeting_sub"
+        app:layout_constraintBottom_toTopOf="@+id/separatorHorizontal"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- home header: zone -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="58dp"
@@ -59,11 +60,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textZoneLabel"
+            android:id="@+id/zoneLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:text="@string/zone_title"
+            android:text="@string/zone_label"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/colorWhite"
@@ -71,11 +72,11 @@
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/textZone"
+            android:id="@+id/zoneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:text="A"
+            android:text="@string/zone_text"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/colorWhite"
@@ -83,9 +84,9 @@
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
-
+    <!-- separator -->
     <View
-        android:id="@+id/view"
+        android:id="@+id/separatorHorizontal"
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginTop="16dp"
@@ -94,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-
+    <!-- list of units -->
     <TextView
         android:id="@+id/homeListViewTitle"
         style="@style/TextAppearance.MyITSCourier.Body1"
@@ -102,12 +103,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Daftar Unit"
+        android:text="@string/unit_list"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/separatorHorizontal" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeListview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -118,7 +119,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeListViewTitle"
-        tools:listitem="@layout/unit_list" />
-
-
+        tools:listitem="@layout/fragment_home_unit_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

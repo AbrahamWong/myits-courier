@@ -16,7 +16,7 @@
     <string name="retry">Ulangi</string>
 
     <!-- Sample Text -->
-    <!-- QrActivity -->
+    <!-- HistoryDetailActivity -->
     <string name="welcome_message">Selamat datang</string>
     <string name="sample_name">Adyatma Mahavir Alister Bagaskara</string>
     <string name="zone">Zona</string>
@@ -39,15 +39,53 @@
     <string name="home">Beranda</string>
     <string name="history">Riwayat</string>
     <string name="profile">Profil</string>
-    <string name="status">Status</string>
-    <string name="num_of_jobs">0 Pekerjaan</string>
-    <string name="reciver_name">Reciver Name</string>
-    <string name="unit_name">Unit Name</string>
-    <string name="nama_kamu">Rizky Andre Wibisono</string>
+    <string name="num_of_jobs_text">0 Pekerjaan</string>
+    <string name="unit_name_text">Unit Name</string>
+    <string name="user_name">Rizky Andre Wibisono</string>
     <string name="location">Zona A</string>
     <string name="peta_zona">Peta Zona</string>
-    <string name="logout_account">Keluar dari akun</string>
-    <string name="overlay_help">camera here</string>
-    <string name="zone_title">Zona</string>
+    <string name="logout">Keluar dari akun</string>
+    <string name="camera_caption">Letakkan kode QR tepat di area kotak</string>
+    <string name="zone_label">Zona</string>
+    <string name="today">Hari Ini</string>
+    <string name="allday">Semua</string>
+    <string name="delivery_type_text">Penjemputan Internal</string>
+    <string name="kode">Kode : </string>
+    <string name="delivery_status_text">Menunggu dijemput</string>
+    <string name="code_packet_text">ABCDEG6H788</string>
+    <string name="unit">Unit</string>
+    <string name="pic_packet">PIC Paket</string>
+    <string name="pic_packet_text">Mang Oleh</string>
+    <string name="status_packet">Status Paket</string>
+    <string name="weight_packet">Berat Paket</string>
+    <string name="weight_packet_text">2 Kg</string>
+    <string name="num_of_packet">Jumlah Paket</string>
+    <string name="num_of_packet_text">2 Paket</string>
+    <string name="description">Deskripsi</string>
+    <string name="description_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae, tellus id egestas porttitor vitae consectetur sagittis convallis.</string>
+    <string name="timeline">Linimasa</string>
+    <string name="navigation">Navigasi</string>
+    <string name="change_status">Ganti Status</string>
+    <string name="status_">Status :</string>
+    <string name="receiver_name_text">Bpk Superman</string>
+    <string name="change_packet_status">Ganti status paket</string>
+    <string name="paket_sudah_dijemput">Paket sudah dijemput</string>
+    <string name="paket_sedang_diantar">Paket sedang diantar</string>
+    <string name="paket_sudah_sampai">Paket sudah sampai</string>
+    <string name="paket_sudah_diterima_pic">Paket sudah diterima PIC</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="job_total">Total Pekerjaan</string>
+    <string name="total_job_text">0</string>
+    <string name="dd_mm_yyyy">dd MM YYYY</string>
+    <string name="kode_xxxxxxx">Kode : XXXXXXX</string>
+    <string name="home_greeting_sub">Semoga harimu menyenangkan!</string>
+    <string name="home_greeting">Halo,</string>
+    <string name="zone_text">A</string>
+    <string name="unit_list">Daftar Unit</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="unit_name">Unit Teknik Informatika</string>
+    <string name="navigation_guide_sub_text">Lalu</string>
+    <string name="navigation_guide_main_text">Lurus menuju Jln. Teknik Mesin</string>
+    <string name="pic_packet_navigation_label">PIC Paket :</string>
 
 </resources>

@@ -1,7 +1,5 @@
 package id.ac.its.myits.courier.data.network;
 
-import android.icu.text.IDNA;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,6 +8,7 @@ import javax.inject.Singleton;
 
 import id.ac.its.myits.courier.di.ApiKeyInfo;
 import id.ac.its.myits.courier.di.AppTokenInfo;
+import timber.log.Timber;
 
 @Singleton
 public class ApiHeader {
@@ -71,6 +70,7 @@ public class ApiHeader {
 
         public void setAuthorization(String accessToken) {
             this.authorization = "Bearer " + accessToken;
+            Timber.tag("Auth").d("setAuthorization: %s", this.authorization);
         }
     }
 

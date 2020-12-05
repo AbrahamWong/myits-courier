@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.androidnetworking.common.ANResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -164,6 +167,26 @@ public class CourierDataManager implements DataManager {
     @Override
     public Observable<UserInfo> doGetUserInfo() {
         return mApiHelper.doGetUserInfo();
+    }
+
+    @Override
+    public Observable<JSONObject> getUnitList(String username) {
+        return mApiHelper.getUnitList(username);
+    }
+
+    @Override
+    public Observable<JSONArray> getUnitDetail(String username, int unitId) {
+        return mApiHelper.getUnitDetail(username, unitId);
+    }
+
+    @Override
+    public Observable<JSONArray> getExternalJobDetail(int idEksternal) {
+        return mApiHelper.getExternalJobDetail(idEksternal);
+    }
+
+    @Override
+    public Observable<JSONArray> getInternalJobDetail(String kodeInternal) {
+        return mApiHelper.getInternalJobDetail(kodeInternal);
     }
 
     @Override

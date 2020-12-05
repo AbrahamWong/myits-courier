@@ -1,16 +1,12 @@
 package id.ac.its.myits.courier.ui.login;
 
-import androidx.annotation.Nullable;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import net.openid.appauth.AuthState;
 import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationRequest;
 import net.openid.appauth.AuthorizationResponse;
@@ -98,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                         REDIRECT_URI); // the redirect URI to which the auth response is sent
 
         AuthorizationRequest authRequest = authRequestBuilder
-                .setScope("profile")
+                .setScope("profile openid")
                 .build();
 
         Intent authIntent = mAuthService.getAuthorizationRequestIntent(authRequest);

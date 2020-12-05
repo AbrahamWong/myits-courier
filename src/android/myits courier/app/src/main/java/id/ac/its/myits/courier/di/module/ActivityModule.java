@@ -8,9 +8,18 @@ import dagger.Module;
 import dagger.Provides;
 import id.ac.its.myits.courier.di.ActivityContext;
 import id.ac.its.myits.courier.di.PerActivity;
-import id.ac.its.myits.courier.ui.detail.DetailMvpPresenter;
-import id.ac.its.myits.courier.ui.detail.DetailMvpView;
-import id.ac.its.myits.courier.ui.detail.DetailPresenter;
+import id.ac.its.myits.courier.ui.history.HistoryDetailPresenter;
+import id.ac.its.myits.courier.ui.history.HistoryMvpPresenter;
+import id.ac.its.myits.courier.ui.history.HistoryMvpView;
+import id.ac.its.myits.courier.ui.job.JobMvpPresenter;
+import id.ac.its.myits.courier.ui.job.JobMvpView;
+import id.ac.its.myits.courier.ui.job.JobPresenter;
+import id.ac.its.myits.courier.ui.joblist.JobListMvpPresenter;
+import id.ac.its.myits.courier.ui.joblist.JobListMvpView;
+import id.ac.its.myits.courier.ui.joblist.JobListPresenter;
+import id.ac.its.myits.courier.ui.jobstatus.JobStatusMvpPresenter;
+import id.ac.its.myits.courier.ui.jobstatus.JobStatusMvpView;
+import id.ac.its.myits.courier.ui.jobstatus.JobStatusPresenter;
 import id.ac.its.myits.courier.ui.login.LoginMvpPresenter;
 import id.ac.its.myits.courier.ui.login.LoginMvpView;
 import id.ac.its.myits.courier.ui.login.LoginPresenter;
@@ -73,8 +82,8 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    DetailMvpPresenter<DetailMvpView> provideDetailPresenter(
-            DetailPresenter<DetailMvpView> presenter){
+    JobMvpPresenter<JobMvpView> provideJobsPresenter(
+            JobPresenter<JobMvpView> presenter){
         return presenter;
     }
 
@@ -87,8 +96,29 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
+    HistoryMvpPresenter<HistoryMvpView> provideHistoryDetailPresenter(
+            HistoryDetailPresenter<HistoryMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
     SplashMvpPresenter<SplashMvpView> provideSplashPresenter(
                     SplashPresenter<SplashMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    JobListMvpPresenter<JobListMvpView> provideJobListPresenter(
+                    JobListPresenter<JobListMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    JobStatusMvpPresenter<JobStatusMvpView> provideJobStatusPresenter(
+                    JobStatusPresenter<JobStatusMvpView> presenter){
         return presenter;
     }
 }

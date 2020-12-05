@@ -1,26 +1,35 @@
 package id.ac.its.myits.courier.data.db.model;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 public class Unit {
-    @SerializedName("id_unit") int _id;
-    @SerializedName("nama_unit") String namaUnit;
-    String alamat;
-    @SerializedName("tipe_unit") String tipeUnit;
-    @SerializedName("no_telp") String nomorTelepon;
+    @SerializedName("id_unit")
+    private int _id;
 
-    ArrayList<Paket> daftarPaket;
+    @SerializedName("nama_unit")
+    private String namaUnit;
 
-    public Unit(int _id, String namaUnit, String alamat, String tipeUnit, String nomorTelepon) {
+    private String alamat;
+
+    @SerializedName("tipe_unit")
+    private String tipeUnit;
+
+    @SerializedName("no_telp")
+    private String nomorTelepon;
+
+    @SerializedName("jumlah")
+    private int jumlahPaket;
+
+    public Unit() {
+    }
+
+    public Unit(int _id, String namaUnit, String alamat, String tipeUnit, String nomorTelepon, int jumlahPaket) {
         this._id = _id;
         this.namaUnit = namaUnit;
         this.alamat = alamat;
         this.tipeUnit = tipeUnit;
         this.nomorTelepon = nomorTelepon;
+        this.jumlahPaket = jumlahPaket;
     }
 
     public int get_id() {
@@ -63,11 +72,11 @@ public class Unit {
         this.nomorTelepon = nomorTelepon;
     }
 
-    public ArrayList<Paket> getDaftarPaket() {
-        return daftarPaket;
+    public int getJumlahPaket() {
+        return jumlahPaket;
     }
 
-    public void setDaftarPaket(ArrayList<Paket> daftarPaket) {
-        this.daftarPaket = daftarPaket;
+    public void setJumlahPaket(int jumlahPaket) {
+        this.jumlahPaket = jumlahPaket;
     }
 }

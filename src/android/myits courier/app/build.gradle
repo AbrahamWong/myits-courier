@@ -13,7 +13,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -23,6 +23,8 @@ android {
             buildConfigField "String", "REDIRECT_URI", "\"id.ac.its.myits.courier:/oauth2callback\""
             buildConfigField "String", "DEV_MYITS_URL", "\"https://dev-my.its.ac.id\""
             buildConfigField "String", "MYITS_URL", "\"https://my.its.ac.id\""
+            buildConfigField "String", "COURIER_API_URL", "\"https://api.its.ac.id:8443/courier\""
+
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
             buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
@@ -61,6 +63,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -107,4 +110,15 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+
+    /**
+     * Frontend purposes
+     */
+
+    implementation 'com.github.vipulasri:timelineview:1.1.0'
+    // TimelineView, docs: https://github.com/vipulasri/Timeline-View
+
+    implementation 'org.osmdroid:osmdroid-android:6.1.8'
+    // OpenStreetMap, docs: https://github.com/osmdroid/osmdroid
+
 }

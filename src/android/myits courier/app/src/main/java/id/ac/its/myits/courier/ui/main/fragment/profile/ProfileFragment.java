@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -20,6 +24,7 @@ import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
+import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
 
@@ -27,6 +32,12 @@ public class ProfileFragment extends BaseFragment implements MainMvpView {
 
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
+
+    @BindView(R.id.profileName)
+    TextView profileName;
+
+    @BindView(R.id.profileLocation)
+    TextView profileLocation;
 
     @BindView(R.id.logOutButton)
     Button logOut;
@@ -48,6 +59,11 @@ public class ProfileFragment extends BaseFragment implements MainMvpView {
         setUnBinder(ButterKnife.bind(this, view));
 
         mPresenter.onAttach((MainMvpView) ProfileFragment.this);
+
+        if (MainActivity.username != null) {
+            profileName.setText(MainActivity.username);
+            profileLocation.setText("Zona " + MainActivity.userZone);
+        }
     }
 
     @OnClick(R.id.logOutButton)
@@ -83,5 +99,15 @@ public class ProfileFragment extends BaseFragment implements MainMvpView {
     @Override
     public void makeCurrentFragment(Fragment fragment) {
 
+    }
+
+    @Override
+    public void showUnitList(ArrayList<Unit> unitList) {
+
+    }
+
+    public void setProfile(String username, String zone) {
+        profileName.setText(username);
+        profileLocation.setText(String.format(Locale.ENGLISH, "Zona %s", zone));
     }
 }
