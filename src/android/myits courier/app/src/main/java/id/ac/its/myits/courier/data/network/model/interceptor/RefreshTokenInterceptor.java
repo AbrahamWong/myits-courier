@@ -59,10 +59,12 @@ import okhttp3.Response;
                         }
                         else if (anResponse.getOkHttpResponse().code() == 400) { //bad request, wrong refresh token
                             AppLogger.d("Error while refreshing token , bad request");
+                            errorListener.onError(anResponse.getOkHttpResponse().code());
                         }
                     }
                     else {
                         AppLogger.d("Error while refreshing token, not success");
+                        errorListener.onError(anResponse.getOkHttpResponse().code());
                     }
 
                     AndroidNetworking.forceCancel(ApiHelper.MYITS_USER_TAG);

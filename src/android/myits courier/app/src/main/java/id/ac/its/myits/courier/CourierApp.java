@@ -40,10 +40,10 @@ public class CourierApp extends Application {
                         new RefreshTokenInterceptor.RefreshTokenErrorListener() {
                             @Override
                             public void onError(int code) {
-
                                 AppLogger.d("Error on refreshing token, opening login activity.. %d", code);
-
+                                dataManager.clearSharedPreferences();
                                 Intent intent = LoginActivity.getStartIntent(getApplicationContext());
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         }))
