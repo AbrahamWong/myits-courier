@@ -1,4 +1,4 @@
-package id.ac.its.myits.courier.ui.history.fragment.dummy
+package id.ac.its.myits.courier.ui.main.fragment.history.dummy
 
 import java.util.*
 

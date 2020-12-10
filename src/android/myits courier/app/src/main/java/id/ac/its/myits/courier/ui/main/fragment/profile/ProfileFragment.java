@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
+import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
@@ -103,6 +104,16 @@ public class ProfileFragment extends BaseFragment implements MainMvpView {
 
     @Override
     public void showUnitList(ArrayList<Unit> unitList) {
+
+    }
+
+    @Override
+    public void showAllHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs) {
+
+    }
+
+    @Override
+    public void showTodayHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs) {
 
     }
 

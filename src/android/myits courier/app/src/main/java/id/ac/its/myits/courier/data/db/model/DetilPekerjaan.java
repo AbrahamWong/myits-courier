@@ -8,6 +8,7 @@ public class DetilPekerjaan {
     private int jumlahPaket;
     private String namaPetugas;
     private String deskripsi;
+    private String tanggal;
 
     public DetilPekerjaan() {
     }
@@ -66,5 +67,13 @@ public class DetilPekerjaan {
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }

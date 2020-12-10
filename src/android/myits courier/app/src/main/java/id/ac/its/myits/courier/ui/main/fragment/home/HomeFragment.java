@@ -19,9 +19,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.its.myits.courier.R;
+import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.di.component.ActivityComponent;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
+import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
 
@@ -50,6 +52,13 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
         }
 
         setUp(v);
+
+        // Jika seandainya sudah pernah request nama pengguna dan zona, tidak perlu menunggu
+        // request daftar unit selesai untuk set text
+        if (MainActivity.username != null) {
+            name.setText(MainActivity.username);
+            zone.setText(MainActivity.userZone);
+        }
 
 //        TextView usernameText = v.findViewById(R.id.homeNameText);
 //        usernameText.setText(listener.getUserName() != null ? listener.getUserName() : v.getResources().getString(R.string.user_name));
@@ -103,6 +112,16 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
         showRecycler(getView(), unitName, numOfJobs, unitId);
     }
 
+    @Override
+    public void showAllHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs) {
+
+    }
+
+    @Override
+    public void showTodayHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs) {
+
+    }
+
     void showRecycler(View view, ArrayList<String> unitName, ArrayList<Integer> numOfJobs, ArrayList<Integer> unitId) {
         RecyclerView homeListView = view.findViewById(R.id.homeListview);
         homeListView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -114,5 +133,11 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
     public void changeNameDetail(String username, String zone) {
         name.setText(username);
         this.zone.setText(zone);
+    }
+
+    @Override
+    public void onDestroy() {
+        mPresenter.onDetach();
+        super.onDestroy();
     }
 }

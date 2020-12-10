@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.history.fragment.HistoryFragment">
+    tools:context=".ui.main.fragment.history.HistoryFragment">
 
     <!-- appbar -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout

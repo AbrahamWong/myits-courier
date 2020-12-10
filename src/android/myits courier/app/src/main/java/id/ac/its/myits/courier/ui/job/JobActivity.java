@@ -100,18 +100,10 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.setOnClickListener(view -> {
-
-        });
 
         mapView.getController().setZoom(17.0);
         mapView.getController().setCenter(mPresenter.getLocation());
 
-        /**
-         * Hardcoded value of package. Change to activity's getExtra when in prod.
-         * Do API request here, and change the view AFTER data retrieved.
-         * You don't want to update the view instantly. Trust me.
-         */
         String tipePaket = getIntent().getStringExtra("TIPE_PAKET");
         if (tipePaket.equals("Eksternal")) {
             onDataFetched(
@@ -143,7 +135,13 @@ public class JobActivity extends BaseActivity implements JobMvpView {
 
     @OnClick(R.id.changeStatusButton)
     public void changeStatus() {
-         startActivity(new Intent(this, JobStatusActivity.class));
+        Intent statusIntent = new Intent(this, JobStatusActivity.class);
+        statusIntent.putExtra("TIPE_PAKET", deliveryType.getText());
+        statusIntent.putExtra("STATUS", packageStatus.getText());
+        statusIntent.putExtra("KODE_PAKET", packageCode.getText());
+        statusIntent.putExtra("ID_PAKET", getIntent().getIntExtra("ID_PAKET", 0));
+        startActivity(statusIntent);
+        this.finish();
     }
 
     public void initiateMaps() {

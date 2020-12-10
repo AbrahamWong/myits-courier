@@ -92,25 +92,25 @@
         app:layout_constraintTop_toBottomOf="@+id/profilePict" />
 
     <!-- zone map button -->
-    <Button
-        android:id="@+id/zoneMapButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/peta_zona"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack"
-        app:icon="@drawable/ic_circle_map"
-        app:iconPadding="26dp"
-        app:iconTint="@android:color/transparent"
-        app:iconTintMode="add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+<!--    <Button-->
+<!--        android:id="@+id/zoneMapButton"-->
+<!--        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="@string/peta_zona"-->
+<!--        android:textAlignment="viewStart"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/colorBlack"-->
+<!--        app:icon="@drawable/ic_circle_map"-->
+<!--        app:iconPadding="26dp"-->
+<!--        app:iconTint="@android:color/transparent"-->
+<!--        app:iconTintMode="add"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
 
     <!-- logout button -->
     <Button
@@ -119,7 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="16dp"
         android:textAllCaps="false"
         android:layout_marginEnd="16dp"
         android:text="@string/logout"
@@ -131,6 +131,6 @@
         app:iconTintMode="add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/zoneMapButton" />
+        app:layout_constraintTop_toBottomOf="@id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

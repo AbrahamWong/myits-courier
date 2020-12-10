@@ -1,4 +1,4 @@
-package id.ac.its.myits.courier.ui.history.fragment;
+package id.ac.its.myits.courier.ui.main.fragment.history;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

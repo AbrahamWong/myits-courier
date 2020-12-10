@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.base.MvpView;
 
@@ -16,4 +17,6 @@ public interface MainMvpView extends MvpView {
     void makeCurrentFragment(Fragment fragment);
 
     void showUnitList(ArrayList<Unit> unitList);
+    void showAllHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs);
+    void showTodayHistory(ArrayList<DetilPekerjaan> jobList, int totalJobs);
 }

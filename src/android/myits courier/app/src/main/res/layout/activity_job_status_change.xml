@@ -59,7 +59,6 @@
                 android:text="@string/paket_sudah_dijemput" />
 
             <RadioButton
-
                 android:id="@+id/status_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -73,6 +72,12 @@
 
             <RadioButton
                 android:id="@+id/status_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/paket_sudah_diterima_pic" />
+
+            <RadioButton
+                android:id="@+id/status_5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/paket_sudah_diterima_pic" />

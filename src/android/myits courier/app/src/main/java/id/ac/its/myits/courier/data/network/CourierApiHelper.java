@@ -3,6 +3,7 @@ package id.ac.its.myits.courier.data.network;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.ANResponse;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONArray;
@@ -52,6 +53,36 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
+    public Observable<JSONObject> getAllHistory(String username) {
+        return Rx2AndroidNetworking
+                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_SEMUA + "/" + username)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getJSONObjectObservable();
+    }
+
+    @Override
+    public Observable<JSONObject> getTodayHistory(String username) {
+        return Rx2AndroidNetworking
+                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_HARI_INI + "/" + username)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getJSONObjectObservable();
+    }
+
+    @Override
+    public Observable<JSONObject> getHistoryDetail(String kodePaket) {
+        return Rx2AndroidNetworking
+                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_DETIL + "/" + kodePaket)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getJSONObjectObservable();
+    }
+
+    @Override
     public Observable<JSONArray> getUnitDetail(String username, int unitId) {
         return Rx2AndroidNetworking
                 .get(ApiEndpoint.ENDPOINT_COURIER_DAFTAR_PAKET + String.format(Locale.ENGLISH,"/%s/%d", username, unitId))
@@ -72,9 +103,51 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
+    public void postExternalJobEdit(int idPaket, String status, OkHttpResponseListener listener) {
+        Rx2AndroidNetworking
+                .post(ApiEndpoint.ENDPOINT_COURIER_EDIT_PAKET_EKSTERNAL + String.format(Locale.ENGLISH, "/%d", idPaket))
+                .addBodyParameter("status", status)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getAsOkHttpResponse(listener);
+    }
+
+    @Override
     public Observable<JSONArray> getInternalJobDetail(String kodeInternal) {
         return Rx2AndroidNetworking
                 .get(ApiEndpoint.ENDPOINT_COURIER_DETIL_PAKET_INTERNAL + "/" + kodeInternal)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getJSONArrayObservable();
+    }
+
+    @Override
+    public void postInternalJobEdit(String kodePaket, String status, OkHttpResponseListener listener) {
+        Rx2AndroidNetworking
+                .post(ApiEndpoint.ENDPOINT_COURIER_EDIT_PAKET_INTERNAL + kodePaket)
+                .addBodyParameter("status", status)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getAsOkHttpResponse(listener);
+    }
+
+    @Override
+    public Observable<JSONArray> getExternalStatuses() {
+        return Rx2AndroidNetworking
+                .get(ApiEndpoint.ENDPOINT_COURIER_DAFTAR_STATUS_EKSTERNAL)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getJSONArrayObservable();
+    }
+
+    @Override
+    public Observable<JSONArray> getInternalStatuses() {
+        return Rx2AndroidNetworking
+                .get(ApiEndpoint.ENDPOINT_COURIER_DAFTAR_STATUS_INTERNAL)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()

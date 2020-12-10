@@ -18,7 +18,6 @@ import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.db.model.PaketEksternal;
 import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
-import id.ac.its.myits.courier.utils.AppLogger;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -92,10 +91,9 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     getMvpView().hideLoading();
                 }, new Consumer<Throwable>(){
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void accept(Throwable throwable) {
                         if (getMvpView().isNetworkConnected()) {
-                            AppLogger.d("Telah terjadi kesalahan");
-                            getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
+                            getMvpView().showMessage("Paket eksternal tidak ditemukan.");
                             getMvpView().hideLoading();
                         }
                     }
@@ -126,10 +124,9 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     getMvpView().hideLoading();
                 }, new Consumer<Throwable>(){
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void accept(Throwable throwable) {
                         if (getMvpView().isNetworkConnected()) {
-                            AppLogger.d("Telah terjadi kesalahan");
-                            getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
+                            getMvpView().showMessage("Paket internal tidak ditemukan.");
                             getMvpView().hideLoading();
                         }
                     }

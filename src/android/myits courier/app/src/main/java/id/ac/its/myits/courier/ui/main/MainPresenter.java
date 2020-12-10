@@ -10,6 +10,7 @@ import java.util.Comparator;
 import javax.inject.Inject;
 
 import id.ac.its.myits.courier.data.DataManager;
+import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.data.network.model.courier.UserInfo;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
@@ -78,8 +79,6 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
     @Override
     public void getUnits(String username) {
         getMvpView().showLoading(null, null);
-
-        // Ini ke-bypass entah kenapa
         getDataManager().getUnitList(username)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
@@ -119,6 +118,82 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                     }
                 });
     }
+
+    @Override
+    public void getAllHistory(String username) {
+        getDataManager().getAllHistory(username)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(jsonObject -> {
+                    ArrayList<DetilPekerjaan> jobList = new ArrayList<>();
+
+                    int total = jsonObject.getInt("total");
+                    JSONArray array = jsonObject.getJSONArray("paket");
+
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject jsonJobs = array.getJSONObject(i);
+                        DetilPekerjaan jobDetail = new DetilPekerjaan();
+//                        jobDetail.setIdPaket(jsonJobs.getInt("id"));
+                        jobDetail.setStatus(jsonJobs.getString("STATUS"));
+                        jobDetail.setKodePaket(jsonJobs.getString("kode"));
+                        jobDetail.setNamaPetugas(jsonJobs.getString("nama_petugas"));
+                        jobDetail.setJumlahPaket(jsonJobs.getInt("jumlah"));
+                         jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
+                        jobDetail.setTanggal(jsonJobs.getString("tanggal"));
+
+                        AppLogger.d("%s ditambahkan ke jobList", jobDetail.getKodePaket());
+                        jobList.add(jobDetail);
+                    }
+
+                    getMvpView().showAllHistory(jobList, total);
+                    AppLogger.d("%d paket secara keseluruhan", total);
+                    getMvpView().hideLoading();
+                }, throwable -> {
+                    if (getMvpView().isNetworkConnected()) {
+                        getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
+                        getMvpView().hideLoading();
+                        AppLogger.e(throwable, "Error yang diberikan adalah:");
+                    }
+                });
+    }
+
+    @Override
+    public void getTodayHistory(String username) {
+        getDataManager().getTodayHistory(username)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(jsonObject -> {
+                    ArrayList<DetilPekerjaan> jobList = new ArrayList<>();
+
+                    int total = jsonObject.getInt("total");
+                    JSONArray array = jsonObject.getJSONArray("paket");
+
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject jsonJobs = array.getJSONObject(i);
+                        DetilPekerjaan jobDetail = new DetilPekerjaan();
+//                        jobDetail.setIdPaket(jsonJobs.getInt("id"));
+                        jobDetail.setStatus(jsonJobs.getString("STATUS"));
+                        jobDetail.setKodePaket(jsonJobs.getString("kode"));
+                        jobDetail.setNamaPetugas(jsonJobs.getString("nama_petugas"));
+                        jobDetail.setJumlahPaket(jsonJobs.getInt("jumlah"));
+                         jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
+                        jobDetail.setTanggal(jsonJobs.getString("tanggal"));
+
+                        AppLogger.d("%s ditambahkan ke jobList", jobDetail.getKodePaket());
+                        jobList.add(jobDetail);
+                    }
+
+                    getMvpView().showAllHistory(jobList, total);
+                    getMvpView().hideLoading();
+                }, throwable -> {
+                    if (getMvpView().isNetworkConnected()) {
+                        getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
+                        getMvpView().hideLoading();
+                        AppLogger.e(throwable, "Error yang diberikan adalah:");
+                    }
+                });
+    }
+
 
     void setHomeDetail(String username, String zone) {
         if (getMvpView() instanceof HomeFragment) {

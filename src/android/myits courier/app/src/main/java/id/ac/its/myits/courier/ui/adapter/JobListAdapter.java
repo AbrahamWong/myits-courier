@@ -40,7 +40,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
             Context ctx = view.getContext();
             Intent jobIntent = new Intent(ctx, JobActivity.class);
 
-            // Dummy Request
             if (data.get(position).getJenisPaket().equals("Eksternal")) {
                 jobIntent.putExtra("ID_PAKET", data.get(position).getIdPaket());
                 jobIntent.putExtra("TIPE_PAKET", data.get(position).getJenisPaket());

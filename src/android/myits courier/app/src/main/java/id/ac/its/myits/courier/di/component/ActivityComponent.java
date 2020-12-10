@@ -3,12 +3,14 @@ package id.ac.its.myits.courier.di.component;
 import dagger.Component;
 import id.ac.its.myits.courier.di.PerActivity;
 import id.ac.its.myits.courier.di.module.ActivityModule;
-import id.ac.its.myits.courier.ui.history.HistoryDetailActivity;
+import id.ac.its.myits.courier.ui.historydetail.HistoryDetailActivity;
 import id.ac.its.myits.courier.ui.job.JobActivity;
 import id.ac.its.myits.courier.ui.joblist.JobListActivity;
 import id.ac.its.myits.courier.ui.jobstatus.JobStatusActivity;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
 import id.ac.its.myits.courier.ui.main.MainActivity;
+import id.ac.its.myits.courier.ui.main.fragment.history.AllDayFragment;
+import id.ac.its.myits.courier.ui.main.fragment.history.TodayFragment;
 import id.ac.its.myits.courier.ui.main.fragment.home.HomeFragment;
 import id.ac.its.myits.courier.ui.main.fragment.profile.ProfileFragment;
 import id.ac.its.myits.courier.ui.qr.QrActivity;
@@ -45,5 +47,8 @@ public interface ActivityComponent {
     // Inject job status change activity
     void inject(JobStatusActivity jobStatusActivity);
 
+    // Inject main fragments
     void inject(HomeFragment homeFragment);
+    void inject(TodayFragment todayFragment);
+    void inject(AllDayFragment allDayFragment);
 }

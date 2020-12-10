@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/unit"
                 android:textColor="@color/colorJustGrey"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
                 android:id="@+id/picStatusLinerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +203,7 @@
                 android:id="@+id/weightCountLinerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -310,7 +310,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/description"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -364,7 +364,7 @@
                     <org.osmdroid.views.MapView
                         android:id="@+id/mapView"
                         android:layout_width="match_parent"
-                        android:layout_height="156dp" />
+                        android:layout_height="114dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

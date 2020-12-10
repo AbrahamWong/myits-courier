@@ -12,6 +12,9 @@ public class DetilStatus implements Parcelable {
         this.date = date;
     }
 
+    public DetilStatus() {
+    }
+
     public static Creator<DetilStatus> getCREATOR() {
         return CREATOR;
     }

@@ -3,6 +3,7 @@ package id.ac.its.myits.courier.data;
 import android.content.Context;
 
 import com.androidnetworking.common.ANResponse;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -175,6 +176,21 @@ public class CourierDataManager implements DataManager {
     }
 
     @Override
+    public Observable<JSONObject> getAllHistory(String username) {
+        return mApiHelper.getAllHistory(username);
+    }
+
+    @Override
+    public Observable<JSONObject> getTodayHistory(String username) {
+        return mApiHelper.getTodayHistory(username);
+    }
+
+    @Override
+    public Observable<JSONObject> getHistoryDetail(String kodePaket) {
+        return mApiHelper.getHistoryDetail(kodePaket);
+    }
+
+    @Override
     public Observable<JSONArray> getUnitDetail(String username, int unitId) {
         return mApiHelper.getUnitDetail(username, unitId);
     }
@@ -185,8 +201,28 @@ public class CourierDataManager implements DataManager {
     }
 
     @Override
+    public void postExternalJobEdit(int idPaket, String status, OkHttpResponseListener listener) {
+        mApiHelper.postExternalJobEdit(idPaket, status, listener);
+    }
+
+    @Override
     public Observable<JSONArray> getInternalJobDetail(String kodeInternal) {
         return mApiHelper.getInternalJobDetail(kodeInternal);
+    }
+
+    @Override
+    public void postInternalJobEdit(String kodePaket, String status, OkHttpResponseListener listener) {
+        mApiHelper.postInternalJobEdit(kodePaket, status, listener);
+    }
+
+    @Override
+    public Observable<JSONArray> getExternalStatuses() {
+        return mApiHelper.getExternalStatuses();
+    }
+
+    @Override
+    public Observable<JSONArray> getInternalStatuses() {
+        return mApiHelper.getInternalStatuses();
     }
 
     @Override
