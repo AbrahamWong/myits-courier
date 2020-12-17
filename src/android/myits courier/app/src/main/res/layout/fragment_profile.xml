@@ -64,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="26dp"
-        android:text="@string/user_name"
         app:layout_constraintStart_toEndOf="@id/profilePict"
         app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
 
@@ -76,7 +75,6 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
         android:shadowColor="@color/colorSecondary"
-        android:text="@string/location"
         app:layout_constraintStart_toEndOf="@id/profilePict"
         app:layout_constraintTop_toBottomOf="@id/profileName" />
 

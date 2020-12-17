@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
 import id.ac.its.myits.courier.R;
+import id.ac.its.myits.courier.ui.base.BaseFragment;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends BaseFragment {
 
     @Nullable
     @Override
@@ -25,11 +26,24 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setUp(getView());
+    }
 
-        ViewPager pager = getView().findViewById(R.id.viewPager);
+    @Override
+    protected void setUp(View view) {
+        ViewPager pager = view.findViewById(R.id.viewPager);
         pager.setAdapter(new HistoryViewPager(getChildFragmentManager(), 2));
 
-        TabLayout tabLayout = getView().findViewById(R.id.tabLayout);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.srl_history);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorSecondary);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            pager.setAdapter(new HistoryViewPager(getChildFragmentManager(), 2));
+            tabLayout.setupWithViewPager(pager);
+            swipeRefreshLayout.setRefreshing(false);
+            hideLoading();
+        });
     }
 }

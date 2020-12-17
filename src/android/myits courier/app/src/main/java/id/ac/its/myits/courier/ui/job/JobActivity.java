@@ -26,6 +26,7 @@ import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.PaketEksternal;
 import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
+import id.ac.its.myits.courier.ui.joblist.JobListActivity;
 import id.ac.its.myits.courier.ui.jobstatus.JobStatusActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
 
@@ -67,6 +68,11 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @BindView(R.id.textView3)
     TextView description;
 
+    static String username;
+    static int idUnit;
+    String tipePaket, kodeInternal = "";
+    int idEksternal = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,15 +110,24 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         mapView.getController().setZoom(17.0);
         mapView.getController().setCenter(mPresenter.getLocation());
 
-        String tipePaket = getIntent().getStringExtra("TIPE_PAKET");
+        //////////////////////////
+        if (getIntent().getIntExtra("RETURN", 0) == 0) {
+            username = getIntent().getStringExtra("USERNAME");
+            idUnit = getIntent().getIntExtra("ID_UNIT", 0);
+        }
+
+        tipePaket = getIntent().getStringExtra("TIPE_PAKET");
         if (tipePaket.equals("Eksternal")) {
+            idEksternal = getIntent().getIntExtra("ID_PAKET", 0);
             onDataFetched(
-                    String.valueOf(getIntent().getIntExtra("ID_PAKET", 0)),
+                    String.valueOf(idEksternal),
                     tipePaket);
-            AppLogger.d("Id: %d test here", getIntent().getIntExtra("ID_PAKET", 0));
+            AppLogger.d("Id: %d test here",
+                    getIntent().getIntExtra("ID_PAKET", 0));
         } else {
+            kodeInternal = getIntent().getStringExtra("KODE_INTERNAL");
             onDataFetched(
-                    getIntent().getStringExtra("KODE_INTERNAL"),
+                    kodeInternal,
                     tipePaket
             );
         }
@@ -128,9 +143,15 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        Intent backIntent = new Intent(this, JobListActivity.class);
-//        startActivity(backIntent);
+        Intent backIntent = new Intent(this, JobListActivity.class);
+
+        backIntent.putExtra("USERNAME", username);
+        backIntent.putExtra("ID_UNIT", idUnit);
+
+        startActivity(backIntent);
         finish(); // or your code
+
+
     }
 
     @OnClick(R.id.changeStatusButton)
@@ -141,7 +162,6 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         statusIntent.putExtra("KODE_PAKET", packageCode.getText());
         statusIntent.putExtra("ID_PAKET", getIntent().getIntExtra("ID_PAKET", 0));
         startActivity(statusIntent);
-        this.finish();
     }
 
     public void initiateMaps() {
@@ -214,9 +234,6 @@ public class JobActivity extends BaseActivity implements JobMvpView {
                             paket.getBeratMinimal(), paket.getBeratMaksimal()));
         }
 
-//        packageQty.setText(String.format(Locale.ENGLISH, "%d buah", paket.getJumlah_paket()));
-        packageQty.setText("1 buah");
-
         description.setText(paket.getDeskripsiPaket());
     }
 
@@ -244,9 +261,6 @@ public class JobActivity extends BaseActivity implements JobMvpView {
                             "%d - %d kg",
                             paket.getBerat_minimal(), paket.getBerat_maksimal()));
         }
-
-//            packageQty.setText(String.format(Locale.ENGLISH, "%d buah", paket.getJumlah_paket()));
-        packageQty.setText("1 buah");
 
         description.setText(paket.getDeskripsi());
     }

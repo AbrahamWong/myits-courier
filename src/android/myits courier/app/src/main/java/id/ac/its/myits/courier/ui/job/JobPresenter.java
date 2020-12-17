@@ -20,7 +20,6 @@ import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 
 public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
@@ -30,9 +29,7 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
     private static final int MAP_REQUEST_CODE = 104;
 
     // Koordinat TC, ganti dengan data dari API jika sudah bisa
-    private static GeoPoint location = new GeoPoint(-7.27957,112.79728);
-
-    PaketEksternal paketEksternal;
+    private static final GeoPoint location = new GeoPoint(-7.27957, 112.79728);
 
     @Inject
     public JobPresenter(DataManager dataManager, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
@@ -51,14 +48,12 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
 
     @Override
     public void onPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MAP_REQUEST_CODE :
-                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText((Activity) getMvpView(), "You need to allow map to use this app.", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Success
-                }
-                break;
+        if (requestCode == MAP_REQUEST_CODE) {
+            if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText((Activity) getMvpView(), "You need to allow map to use this app.", Toast.LENGTH_SHORT).show();
+            } else {
+                // Success
+            }
         }
     }
 
@@ -89,13 +84,10 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
 
                     getMvpView().setAllExternalText(paket);
                     getMvpView().hideLoading();
-                }, new Consumer<Throwable>(){
-                    @Override
-                    public void accept(Throwable throwable) {
-                        if (getMvpView().isNetworkConnected()) {
-                            getMvpView().showMessage("Paket eksternal tidak ditemukan.");
-                            getMvpView().hideLoading();
-                        }
+                }, throwable -> {
+                    if (getMvpView().isNetworkConnected()) {
+                        getMvpView().showMessage("Paket eksternal tidak ditemukan.");
+                        getMvpView().hideLoading();
                     }
                 });
     }
@@ -122,13 +114,10 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
 
                     getMvpView().setAllInternalText(paket);
                     getMvpView().hideLoading();
-                }, new Consumer<Throwable>(){
-                    @Override
-                    public void accept(Throwable throwable) {
-                        if (getMvpView().isNetworkConnected()) {
-                            getMvpView().showMessage("Paket internal tidak ditemukan.");
-                            getMvpView().hideLoading();
-                        }
+                }, throwable -> {
+                    if (getMvpView().isNetworkConnected()) {
+                        getMvpView().showMessage("Paket internal tidak ditemukan.");
+                        getMvpView().hideLoading();
                     }
                 });
     }

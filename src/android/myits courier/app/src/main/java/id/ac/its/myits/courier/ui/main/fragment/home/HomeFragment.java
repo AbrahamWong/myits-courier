@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ import id.ac.its.myits.courier.ui.base.BaseFragment;
 import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
+import id.ac.its.myits.courier.utils.AppLogger;
 
 public class HomeFragment extends BaseFragment implements MainMvpView {
 
@@ -37,6 +39,9 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
 
     @BindView(R.id.zoneText)
     TextView zone;
+
+    @BindView(R.id.srl_home)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -68,6 +73,12 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
     @Override
     protected void setUp(View view) {
         mPresenter.getUserInfo();
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorSecondary);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPresenter.getUserInfo();
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
 
@@ -124,8 +135,10 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
 
     void showRecycler(View view, ArrayList<String> unitName, ArrayList<Integer> numOfJobs, ArrayList<Integer> unitId) {
         RecyclerView homeListView = view.findViewById(R.id.homeListview);
+        ListViewAdapter adapter = new ListViewAdapter(unitName, numOfJobs, unitId);
         homeListView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        homeListView.setAdapter(new ListViewAdapter(unitName, numOfJobs, unitId));
+        homeListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         hideLoading();
     }
@@ -138,6 +151,7 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
     @Override
     public void onDestroy() {
         mPresenter.onDetach();
+        AppLogger.d("onDestroy is called");
         super.onDestroy();
     }
 }

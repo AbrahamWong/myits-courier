@@ -3,9 +3,7 @@ package id.ac.its.myits.courier.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,6 +25,7 @@ import id.ac.its.myits.courier.ui.main.fragment.history.HistoryFragment;
 import id.ac.its.myits.courier.ui.main.fragment.home.HomeFragment;
 import id.ac.its.myits.courier.ui.main.fragment.profile.ProfileFragment;
 import id.ac.its.myits.courier.ui.qr.QrActivity;
+import id.ac.its.myits.courier.utils.AppLogger;
 
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -44,8 +43,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public static String userZone = null;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     @Override
@@ -55,26 +53,29 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         setUp();
 
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        HomeFragment homeFragment = new HomeFragment();
-                        makeCurrentFragment(homeFragment);
-                        return true;
-                    case R.id.history:
-                        makeCurrentFragment(new HistoryFragment());
-                        return true;
-                    case R.id.profile:
-                        makeCurrentFragment(new ProfileFragment());
-                        return true;
-                }
-                return false;
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    HomeFragment homeFragment = new HomeFragment();
+                    makeCurrentFragment(homeFragment);
+                    return true;
+                case R.id.history:
+                    makeCurrentFragment(new HistoryFragment());
+                    return true;
+                case R.id.profile:
+                    makeCurrentFragment(new ProfileFragment());
+                    return true;
             }
+            return false;
         });
 
         bottomNavigation.setBackground(null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppLogger.d("Called onResume");
     }
 
     @Override

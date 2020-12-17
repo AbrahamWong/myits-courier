@@ -94,55 +94,15 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     @OnClick(R.id.confirmStatusButton)
     public void confirmStatus() {
         RadioButton option = findViewById(statusRadioGroup.getCheckedRadioButtonId());
-        String kodePaket = getIntent().getStringExtra("KODE_PAKET");
-        int idPaket = getIntent().getIntExtra("ID_PAKET", 0);
 
-        Intent jobIntent = new Intent(this, JobActivity.class);
-
-        switch (deliveryType) {
-            case "Internal":
-                switch (option.getId()) {
-                    case R.id.status_1:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status1.getText()));
-                        break;
-                    case R.id.status_2:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status2.getText()));
-                        break;
-                    case R.id.status_3:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status3.getText()));
-                        break;
-                    case R.id.status_4:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status4.getText()));
-                        break;
-                    case R.id.status_5:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status5.getText()));
-                        break;
-                }
-                jobIntent.putExtra("TIPE_PAKET", deliveryType);
-                jobIntent.putExtra("KODE_INTERNAL", kodePaket);
-                break;
-            case "Eksternal":
-                switch (option.getId()) {
-                    case R.id.status_1:
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status1.getText()));
-                        break;
-                    case R.id.status_2:
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status2.getText()));
-                        break;
-                    case R.id.status_3:
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status3.getText()));
-                        break;
-                }
-                jobIntent.putExtra("TIPE_PAKET", deliveryType);
-                jobIntent.putExtra("ID_PAKET", idPaket);
-                break;
-        }
+        Intent confirmIntent = changeByTypeIntent(deliveryType, option);
+        confirmIntent.putExtra("RETURN", 1);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            startActivity(jobIntent);
+            startActivity(confirmIntent);
             finish();
-        }, 1000);
+        }, 800);
     }
 
     @Override
@@ -183,5 +143,53 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         } else if (status.get(4).equals(jobStatus)) {
             status5.setChecked(true);
         }
+    }
+
+    private Intent changeByTypeIntent(String deliveryType, RadioButton selectedRadio) {
+
+        Intent jobIntent = new Intent(this, JobActivity.class);
+        String kodePaket = getIntent().getStringExtra("KODE_PAKET");
+        int idPaket = getIntent().getIntExtra("ID_PAKET", 0);
+
+        switch (deliveryType) {
+            case "Internal":
+                switch (selectedRadio.getId()) {
+                    case R.id.status_1:
+                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status1.getText()));
+                        break;
+                    case R.id.status_2:
+                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status2.getText()));
+                        break;
+                    case R.id.status_3:
+                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status3.getText()));
+                        break;
+                    case R.id.status_4:
+                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status4.getText()));
+                        break;
+                    case R.id.status_5:
+                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status5.getText()));
+                        break;
+                }
+                jobIntent.putExtra("TIPE_PAKET", deliveryType);
+                jobIntent.putExtra("KODE_INTERNAL", kodePaket);
+                break;
+            case "Eksternal":
+                switch (selectedRadio.getId()) {
+                    case R.id.status_1:
+                        mPresenter.postExternalStatus(idPaket, String.valueOf(status1.getText()));
+                        break;
+                    case R.id.status_2:
+                        mPresenter.postExternalStatus(idPaket, String.valueOf(status2.getText()));
+                        break;
+                    case R.id.status_3:
+                        mPresenter.postExternalStatus(idPaket, String.valueOf(status3.getText()));
+                        break;
+                }
+                jobIntent.putExtra("TIPE_PAKET", deliveryType);
+                jobIntent.putExtra("ID_PAKET", idPaket);
+                break;
+        }
+
+        return jobIntent;
     }
 }

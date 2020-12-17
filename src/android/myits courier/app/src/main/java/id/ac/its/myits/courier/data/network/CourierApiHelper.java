@@ -21,7 +21,7 @@ import io.reactivex.Observable;
 
 @Singleton
 public class CourierApiHelper implements ApiHelper{
-    private ApiHeader apiHeader;
+    private final ApiHeader apiHeader;
 
     @Inject
     public CourierApiHelper(ApiHeader apiHeader) {
@@ -126,7 +126,7 @@ public class CourierApiHelper implements ApiHelper{
     @Override
     public void postInternalJobEdit(String kodePaket, String status, OkHttpResponseListener listener) {
         Rx2AndroidNetworking
-                .post(ApiEndpoint.ENDPOINT_COURIER_EDIT_PAKET_INTERNAL + kodePaket)
+                .post(ApiEndpoint.ENDPOINT_COURIER_EDIT_PAKET_INTERNAL + "/" + kodePaket)
                 .addBodyParameter("status", status)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())

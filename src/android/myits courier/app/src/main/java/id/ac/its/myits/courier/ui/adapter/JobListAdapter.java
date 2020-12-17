@@ -1,7 +1,5 @@
 package id.ac.its.myits.courier.ui.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +9,33 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
-import id.ac.its.myits.courier.ui.job.JobActivity;
 
 public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListVH> {
 
     ArrayList<DetilPekerjaan> data;
+    private OnClickListener listener;
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
 
     public JobListAdapter(ArrayList<DetilPekerjaan> data) {
         this.data = data;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull JobListVH holder, int position) {
+        holder.bind(data.get(position));
+
+        holder.itemView.setOnClickListener(view -> {
+            listener.OnItemClicked(data.get(position));
+        });
     }
 
     @NonNull
@@ -32,25 +44,8 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
         return new JobListVH(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_job_list_item, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull JobListVH holder, int position) {
-        holder.bind(data.get(position));
-
-        holder.itemView.setOnClickListener(view -> {
-            Context ctx = view.getContext();
-            Intent jobIntent = new Intent(ctx, JobActivity.class);
-
-            if (data.get(position).getJenisPaket().equals("Eksternal")) {
-                jobIntent.putExtra("ID_PAKET", data.get(position).getIdPaket());
-                jobIntent.putExtra("TIPE_PAKET", data.get(position).getJenisPaket());
-
-            } else {
-                jobIntent.putExtra("KODE_INTERNAL", data.get(position).getKodePaket());
-                jobIntent.putExtra("TIPE_PAKET", data.get(position).getJenisPaket());
-            }
-
-            ctx.startActivity(jobIntent);
-        });
+    public interface OnClickListener {
+        void OnItemClicked(DetilPekerjaan detil);
     }
 
     @Override
@@ -83,7 +78,8 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
             status.setText(pekerjaan.getStatus());
             deliveryType.setText(pekerjaan.getJenisPaket());
             packageCode.setText(pekerjaan.getKodePaket());
-            packageQty.setText(pekerjaan.getJumlahPaket() + " paket");
+            packageQty.setText(String.format(Locale.ENGLISH, "%d paket",
+                    pekerjaan.getJumlahPaket()));
             staffName.setText(pekerjaan.getNamaPetugas());
         }
     }
