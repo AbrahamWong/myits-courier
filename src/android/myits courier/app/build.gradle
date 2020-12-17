@@ -5,15 +5,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+//    compileSdkVersion 30
+//    buildToolsVersion "30.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "id.ac.its.myits.courier"
-        minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 1
-        versionName "alpha"
+//        minSdkVersion 24
+//        targetSdkVersion 30
+//        versionCode 1
+//        versionName "alpha"
+        minSdkVersion rootProject.ext.minimumSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -36,6 +42,7 @@ android {
             buildConfigField "String", "REDIRECT_URI", "\"id.ac.its.myits.courier:/oauth2callback\""
             buildConfigField "String", "DEV_MYITS_URL", "\"https://dev-my.its.ac.id\""
             buildConfigField "String", "MYITS_URL", "\"https://my.its.ac.id\""
+            buildConfigField "String", "COURIER_API_URL", "\"https://api.its.ac.id:8443/courier\""
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
             buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
@@ -121,4 +128,22 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.1.8'
     // OpenStreetMap, docs: https://github.com/osmdroid/osmdroid
 
+}
+
+private Integer generateVersionCode() {
+    return rootProject.ext.minimumSdkVersion * 10000000 + rootProject.ext.versionMajor * 10000 + rootProject.ext.versionMinor * 100 + rootProject.ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
+    if (rootProject.ext.versionClassifier == null) {
+        if (rootProject.ext.isSnapshot) {
+            rootProject.ext.versionClassifier = "SNAPSHOT"
+        }
+    }
+
+    if (rootProject.ext.versionClassifier != null) {
+        versionName += "-" + rootProject.ext.versionClassifier
+    }
+    return versionName
 }
