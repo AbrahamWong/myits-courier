@@ -28,6 +28,7 @@ import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.joblist.JobListActivity;
 import id.ac.its.myits.courier.ui.jobstatus.JobStatusActivity;
+import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
 
 public class JobActivity extends BaseActivity implements JobMvpView {
@@ -68,10 +69,12 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @BindView(R.id.textView3)
     TextView description;
 
-    static String username;
-    static int idUnit;
-    String tipePaket, kodeInternal = "";
+    // Untuk menandakan bahwa telah selesai mengubah status
+    public static boolean fromStatus = false;
     int idEksternal = 0;
+    static String tipePaket;
+    String kodeInternal = "";
+    int idUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,13 +113,11 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         mapView.getController().setZoom(17.0);
         mapView.getController().setCenter(mPresenter.getLocation());
 
-        //////////////////////////
-        if (getIntent().getIntExtra("RETURN", 0) == 0) {
-            username = getIntent().getStringExtra("USERNAME");
-            idUnit = getIntent().getIntExtra("ID_UNIT", 0);
-        }
-
         tipePaket = getIntent().getStringExtra("TIPE_PAKET");
+        retrieveData(tipePaket);
+    }
+
+    private void retrieveData(String tipePaket) {
         if (tipePaket.equals("Eksternal")) {
             idEksternal = getIntent().getIntExtra("ID_PAKET", 0);
             onDataFetched(
@@ -143,15 +144,8 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent backIntent = new Intent(this, JobListActivity.class);
-
-        backIntent.putExtra("USERNAME", username);
-        backIntent.putExtra("ID_UNIT", idUnit);
-
-        startActivity(backIntent);
+        goBack(MainActivity.username, idUnit);
         finish(); // or your code
-
-
     }
 
     @OnClick(R.id.changeStatusButton)
@@ -189,6 +183,12 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
         mapView.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+
+        // Refresh tampilan dan reset flag
+        if (fromStatus) {
+            retrieveData(tipePaket);
+            fromStatus = false;
+        }
     }
 
     @Override
@@ -263,5 +263,22 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         }
 
         description.setText(paket.getDeskripsi());
+    }
+
+    @Override
+    public void onUnitIdRetrieved(int idUnit) {
+        this.idUnit = idUnit;
+    }
+
+    @Override
+    public void goBack(String username, int idUnit) {
+        Intent backIntent = new Intent(this, JobListActivity.class);
+
+        backIntent.putExtra("USERNAME", username);
+        backIntent.putExtra("ID_UNIT", idUnit);
+
+        AppLogger.d("%d: %s", idUnit, username);
+
+        startActivity(backIntent);
     }
 }

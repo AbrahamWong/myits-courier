@@ -102,7 +102,8 @@ public class JobListActivity extends BaseActivity implements JobListMvpView {
             jobIntent.putExtra("TIPE_PAKET", detil.getJenisPaket());
             jobIntent.putExtra("USERNAME", username);
             jobIntent.putExtra("ID_UNIT", idUnit);
-            jobIntent.putExtra("RETURN", 0);
+
+            jobIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             startActivity(jobIntent);
             finish();

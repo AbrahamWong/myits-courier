@@ -83,6 +83,7 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setNamaUnit(jsonObject.getString("nama_unit"));
 
                     getMvpView().setAllExternalText(paket);
+                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));
                     getMvpView().hideLoading();
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
@@ -113,6 +114,7 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setNamaUnit(jsonObject.getString("nama_unit"));
 
                     getMvpView().setAllInternalText(paket);
+                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));
                     getMvpView().hideLoading();
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {

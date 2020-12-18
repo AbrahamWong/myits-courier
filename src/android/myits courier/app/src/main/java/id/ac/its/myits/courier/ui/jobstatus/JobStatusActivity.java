@@ -1,6 +1,5 @@
 package id.ac.its.myits.courier.ui.jobstatus;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -95,14 +94,13 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     public void confirmStatus() {
         RadioButton option = findViewById(statusRadioGroup.getCheckedRadioButtonId());
 
-        Intent confirmIntent = changeByTypeIntent(deliveryType, option);
-        confirmIntent.putExtra("RETURN", 1);
-
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            startActivity(confirmIntent);
+            changeStatus(deliveryType, option);
+            JobActivity.fromStatus = true;
             finish();
         }, 800);
+
     }
 
     @Override
@@ -145,9 +143,7 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         }
     }
 
-    private Intent changeByTypeIntent(String deliveryType, RadioButton selectedRadio) {
-
-        Intent jobIntent = new Intent(this, JobActivity.class);
+    private void changeStatus(String deliveryType, RadioButton selectedRadio) {
         String kodePaket = getIntent().getStringExtra("KODE_PAKET");
         int idPaket = getIntent().getIntExtra("ID_PAKET", 0);
 
@@ -170,8 +166,6 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
                         mPresenter.postInternalStatus(kodePaket, String.valueOf(status5.getText()));
                         break;
                 }
-                jobIntent.putExtra("TIPE_PAKET", deliveryType);
-                jobIntent.putExtra("KODE_INTERNAL", kodePaket);
                 break;
             case "Eksternal":
                 switch (selectedRadio.getId()) {
@@ -185,11 +179,7 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
                         mPresenter.postExternalStatus(idPaket, String.valueOf(status3.getText()));
                         break;
                 }
-                jobIntent.putExtra("TIPE_PAKET", deliveryType);
-                jobIntent.putExtra("ID_PAKET", idPaket);
                 break;
         }
-
-        return jobIntent;
     }
 }

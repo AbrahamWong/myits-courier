@@ -9,5 +9,10 @@ public interface JobMvpView extends MvpView {
     void onDataFetched(String id, String tipePaket);
 
     void setAllExternalText(PaketEksternal paket);
+
     void setAllInternalText(PaketInternal paket);
+
+    void onUnitIdRetrieved(int idUnit);
+
+    void goBack(String username, int idUnit);
 }
