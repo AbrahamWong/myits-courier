@@ -29,12 +29,13 @@ android {
             buildConfigField "String", "REDIRECT_URI", "\"id.ac.its.myits.courier:/oauth2callback\""
             buildConfigField "String", "DEV_MYITS_URL", "\"https://dev-my.its.ac.id\""
             buildConfigField "String", "MYITS_URL", "\"https://my.its.ac.id\""
-            buildConfigField "String", "COURIER_API_URL", "\"https://api.its.ac.id:8443/courier\""
+            buildConfigField "String", "DEV_COURIER_URL", "\"https://api.its.ac.id:8443/courier-sandbox/1.0\""
+            buildConfigField "String", "COURIER_URL", "\"https://api.its.ac.id:8443/courier/1.0\""
 
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
-            buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
-            buildConfigField "String", "CLIENT_SECRET", "\"el2ezfu7660woscw8so80w8k\""
+            buildConfigField "String", "CLIENT_ID", "\"BD13563E-6550-4A1D-9DE0-0A9BB1593D65\""
+            buildConfigField "String", "CLIENT_SECRET", "\"8mxsgjwivuo0go8kwg8s0gs8\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
@@ -42,11 +43,12 @@ android {
             buildConfigField "String", "REDIRECT_URI", "\"id.ac.its.myits.courier:/oauth2callback\""
             buildConfigField "String", "DEV_MYITS_URL", "\"https://dev-my.its.ac.id\""
             buildConfigField "String", "MYITS_URL", "\"https://my.its.ac.id\""
-            buildConfigField "String", "COURIER_API_URL", "\"https://api.its.ac.id:8443/courier\""
+            buildConfigField "String", "DEV_COURIER_URL", "\"https://api.its.ac.id:8443/courier-sandbox/1.0\""
+            buildConfigField "String", "COURIER_URL", "\"https://api.its.ac.id:8443/courier/1.0\""
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
-            buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
-            buildConfigField "String", "CLIENT_SECRET", "\"el2ezfu7660woscw8so80w8k\""
+            buildConfigField "String", "CLIENT_ID", "\"BD13563E-6550-4A1D-9DE0-0A9BB1593D65\""
+            buildConfigField "String", "CLIENT_SECRET", "\"8mxsgjwivuo0go8kwg8s0gs8\""
             //minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
