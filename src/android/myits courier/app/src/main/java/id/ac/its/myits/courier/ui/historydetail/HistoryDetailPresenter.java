@@ -96,7 +96,7 @@ public class HistoryDetailPresenter<V extends HistoryMvpView> extends BasePresen
         history.setId(object.getInt("id"));
         history.setKodePaket(object.getString("kode"));
         history.setNamaPetugas(object.getString("nama_petugas"));
-        history.setStatus(object.getString("STATUS"));
+        history.setStatus(object.getString("status"));
         history.setBeratMinimal(object.getInt("berat_minimal"));
         history.setBeratMaksimal(object.getInt("berat_maksimal"));
         history.setDeskripsi(object.getString("deskripsi"));

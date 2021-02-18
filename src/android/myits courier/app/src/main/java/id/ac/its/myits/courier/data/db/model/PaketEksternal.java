@@ -15,7 +15,7 @@ public class PaketEksternal implements Parcelable {
 
     private int jumlah_paket;
 
-    @SerializedName("STATUS")
+    @SerializedName("status")
     private String status;
 
     @SerializedName("deskripsi")

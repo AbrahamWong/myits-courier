@@ -149,9 +149,6 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                     paket.setStatus(jsonObject.getString("STATUS"));
 
                     getStatusLists(paket);
-                    AppLogger.d("QR: First, the internal package we get is this. %s is the package ID and status is %s.",
-                            paket.getKodeInternal(),
-                            paket.getStatus());
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
                         AppLogger.e(throwable, "Error yang diberikan adalah:");
@@ -164,10 +161,6 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(jsonArray -> {
-                    AppLogger.d("QR: Once we throw it into new function, the internal package becomes:\n\tInternal ID: %s\n\tStatus: %s",
-                            paketInternal.getKodeInternal(),
-                            paketInternal.getStatus());
-
                     ArrayList<String> statuses = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -176,8 +169,7 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                     }
 
                     changeStatus(paketInternal, statuses);
-                    AppLogger.d("QR: Then we pass the internal status lists and the internal package into next stage.\n" +
-                            "Checking internal statuses...\n%s", statuses.toString());
+
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
                         AppLogger.e(throwable, "Error yang diberikan adalah:");
@@ -186,7 +178,6 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
     }
 
     void changeStatus(PaketInternal paketInternal, ArrayList<String> statuses) {
-        AppLogger.d("QR: %s is here? Oh, yeah. Right...", paketInternal.getKodeInternal());
 
         String statusPosted = "nothing, because the internal status is invalid";
         boolean needToChange = true;
@@ -209,7 +200,6 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
             else needToChange = false;
         }
 
-        AppLogger.d("QR: So for now, needToChange is set to %b, \nand the status will be changed into %s.", needToChange, statusPosted);
 
         if (needToChange && !statusPosted.equals("nothing, because the internal status is invalid")) {
             String finalStatusPosted = statusPosted;

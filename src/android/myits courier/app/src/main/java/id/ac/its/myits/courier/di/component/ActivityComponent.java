@@ -13,6 +13,7 @@ import id.ac.its.myits.courier.ui.main.fragment.history.AllDayFragment;
 import id.ac.its.myits.courier.ui.main.fragment.history.TodayFragment;
 import id.ac.its.myits.courier.ui.main.fragment.home.HomeFragment;
 import id.ac.its.myits.courier.ui.main.fragment.profile.ProfileFragment;
+import id.ac.its.myits.courier.ui.proof.ProofActivity;
 import id.ac.its.myits.courier.ui.qr.QrActivity;
 import id.ac.its.myits.courier.ui.splash.SplashActivity;
 
@@ -47,8 +48,13 @@ public interface ActivityComponent {
     // Inject job status change activity
     void inject(JobStatusActivity jobStatusActivity);
 
+    // Inject image proof for job status change activity
+    void inject(ProofActivity proofActivity);
+
     // Inject main fragments
     void inject(HomeFragment homeFragment);
+
     void inject(TodayFragment todayFragment);
+
     void inject(AllDayFragment allDayFragment);
 }

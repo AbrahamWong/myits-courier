@@ -4,39 +4,78 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserInfo {
-    @Expose
-    @SerializedName("name")
-    private String username;
 
     @Expose
-    @SerializedName("sub")
-    private String sub;
+    @SerializedName("data")
+    private CarakaData userdata;
 
-    @Expose
-    @SerializedName("preferred_username")
-    private String preferredUsername;
-
-    public String getUsername() {
-        return username;
+    public CarakaData getUserdata() {
+        return userdata;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserdata(CarakaData userdata) {
+        this.userdata = userdata;
     }
 
-    public String getSub() {
-        return sub;
-    }
+    public class CarakaData {
+        @Expose
+        @SerializedName("nama")
+        private String username;
 
-    public void setSub(String sub) {
-        this.sub = sub;
-    }
+        @Expose
+        @SerializedName("sub")
+        private String sub;
 
-    public String getPreferredUsername() {
-        return preferredUsername;
-    }
+        @Expose
+        @SerializedName("id_sso")
+        private String idSSO;
 
-    public void setPreferredUsername(String preferredUsername) {
-        this.preferredUsername = preferredUsername;
+        @Expose
+        @SerializedName("zona")
+        private String zonaCaraka;
+
+        @Expose
+        @SerializedName("preferred_username")
+        private String preferredUsername;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getSub() {
+            return sub;
+        }
+
+        public void setSub(String sub) {
+            this.sub = sub;
+        }
+
+        public String getPreferredUsername() {
+            return preferredUsername;
+        }
+
+        public void setPreferredUsername(String preferredUsername) {
+            this.preferredUsername = preferredUsername;
+        }
+
+        public String getIdSSO() {
+            return idSSO;
+        }
+
+        public void setIdSSO(String idSSO) {
+            this.idSSO = idSSO;
+        }
+
+        public String getZonaCaraka() {
+            return zonaCaraka;
+        }
+
+        public void setZonaCaraka(String zonaCaraka) {
+            this.zonaCaraka = zonaCaraka;
+        }
     }
 }

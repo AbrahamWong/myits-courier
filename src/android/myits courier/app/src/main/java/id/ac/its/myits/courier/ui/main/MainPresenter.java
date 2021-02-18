@@ -41,7 +41,7 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
         getDataManager().doGetUserInfo()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(userInfo -> AppLogger.d("AppAuthSample "+ "userinfo " + userInfo.getPreferredUsername()), new Consumer<Throwable>(){
+                .subscribe(userInfo -> AppLogger.d("AppAuthSample " + "userinfo " + userInfo.getUserdata().getPreferredUsername()), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (getMvpView().isNetworkConnected()) {
@@ -59,14 +59,16 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(userInfo -> {
-//                    AppLogger.d("AppAuthSample "+ "userinfo " + userInfo.getPreferredUsername());
-//                    AppLogger.d("AppAuthSample "+ "username " + userInfo.getUsername());
-//                    AppLogger.d("AppAuthSample "+ "id / sub " + userInfo.getSub());
-//                    getMvpView().showMessage("Selamat datang " + userInfo.getUsername());
+                    AppLogger.d("AppAuthSample " + "userinfo " + userInfo.getUserdata().getPreferredUsername());
+                    AppLogger.d("AppAuthSample " + "username " + userInfo.getUserdata().getUsername());
+                    AppLogger.d("AppAuthSample " + "id / sub " + userInfo.getUserdata().getSub());
+//                    getMvpView().showMessage("Selamat datang " + userInfo.getUserdata().getUsername());
                     ui[0] = userInfo;
-                    MainActivity.username = userInfo.getUsername();
+                    MainActivity.username = userInfo.getUserdata().getUsername();
+                    MainActivity.userSsoId = userInfo.getUserdata().getIdSSO();
+                    MainActivity.userZone = userInfo.getUserdata().getZonaCaraka();
 
-                    getUnits(userInfo.getUsername());
+                    getUnits(userInfo.getUserdata().getUsername());
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
                         getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
@@ -85,13 +87,10 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                 .subscribe(jsonObject -> {
                     ArrayList<Unit> unitList = new ArrayList<>();
 
-                    String zona = jsonObject.getJSONObject("zona").getString("zona");
                     JSONArray array = jsonObject.getJSONArray("unit");
 
-                    MainActivity.userZone = zona;
-
-                    setHomeDetail(username, zona);
-                    setProfileDetail(username, zona);
+                    setHomeDetail(username, MainActivity.userZone);
+                    setProfileDetail(username, MainActivity.userZone);
 
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonUnit = array.getJSONObject(i);

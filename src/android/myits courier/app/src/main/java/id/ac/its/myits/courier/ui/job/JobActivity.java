@@ -118,6 +118,7 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     }
 
     private void retrieveData(String tipePaket) {
+        AppLogger.d("Tipe paket: %s", tipePaket);
         if (tipePaket.equals("Eksternal")) {
             idEksternal = getIntent().getIntExtra("ID_PAKET", 0);
             onDataFetched(

@@ -26,6 +26,9 @@ import id.ac.its.myits.courier.ui.login.LoginPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
 import id.ac.its.myits.courier.ui.main.MainPresenter;
+import id.ac.its.myits.courier.ui.proof.ProofMvpPresenter;
+import id.ac.its.myits.courier.ui.proof.ProofMvpView;
+import id.ac.its.myits.courier.ui.proof.ProofPresenter;
 import id.ac.its.myits.courier.ui.qr.QrMvpPresenter;
 import id.ac.its.myits.courier.ui.qr.QrMvpView;
 import id.ac.its.myits.courier.ui.qr.QrPresenter;
@@ -38,7 +41,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 @Module
 public class ActivityModule {
-    private AppCompatActivity mActivity;
+    private final AppCompatActivity mActivity;
 
     public ActivityModule(AppCompatActivity activity) {
         this.mActivity = activity;
@@ -111,14 +114,21 @@ public class ActivityModule {
     @Provides
     @PerActivity
     JobListMvpPresenter<JobListMvpView> provideJobListPresenter(
-                    JobListPresenter<JobListMvpView> presenter){
+            JobListPresenter<JobListMvpView> presenter) {
         return presenter;
     }
 
     @Provides
     @PerActivity
     JobStatusMvpPresenter<JobStatusMvpView> provideJobStatusPresenter(
-                    JobStatusPresenter<JobStatusMvpView> presenter){
+            JobStatusPresenter<JobStatusMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ProofMvpPresenter<ProofMvpView> provideProofPresenter(
+            ProofPresenter<ProofMvpView> presenter) {
         return presenter;
     }
 }

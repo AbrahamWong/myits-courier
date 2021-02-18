@@ -44,8 +44,8 @@ public class LoginPresenter <V extends LoginMvpView> extends BasePresenter<V>
                 .subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo userInfo) throws Exception {
-                        AppLogger.d("AppAuthSample "+ "userinfo " + userInfo.getPreferredUsername());
-                        AppLogger.d("AppAuthSample "+ "sub " + userInfo.getSub());
+                        AppLogger.d("AppAuthSample " + "userinfo " + userInfo.getUserdata().getPreferredUsername());
+                        AppLogger.d("AppAuthSample " + "sub " + userInfo.getUserdata().getSub());
                         onPersistUser();
                         getMvpView().openMainActivity();
                         getMvpView().hideLoading();

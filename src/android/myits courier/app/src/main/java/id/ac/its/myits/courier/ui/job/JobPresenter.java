@@ -76,7 +76,7 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setIdPaket(id);
                     paket.setNomorResi(jsonObject.getString("kode"));
                     paket.setNamaPetugas(jsonObject.getString("nama_petugas"));
-                    paket.setStatus(jsonObject.getString("STATUS"));
+                    paket.setStatus(jsonObject.getString("status"));
                     paket.setBeratMinimal(jsonObject.getInt("berat_minimal"));
                     paket.setBeratMaksimal(jsonObject.getInt("berat_maksimal"));
                     paket.setDeskripsiPaket(jsonObject.getString("deskripsi"));

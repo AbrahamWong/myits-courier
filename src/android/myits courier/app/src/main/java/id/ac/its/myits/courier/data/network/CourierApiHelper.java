@@ -35,7 +35,7 @@ public class CourierApiHelper implements ApiHelper{
 
     @Override
     public Observable<UserInfo> doGetUserInfo() {
-        return Rx2AndroidNetworking.get(ApiEndpoint.ENDPOINT_MYITS_USERINFO)
+        return Rx2AndroidNetworking.get(ApiEndpoint.ENDPOINT_COURIER_USERINFO)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()

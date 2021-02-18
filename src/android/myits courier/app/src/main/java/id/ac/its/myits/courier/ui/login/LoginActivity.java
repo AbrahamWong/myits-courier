@@ -83,8 +83,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     private void doAuthorization() {
         AuthorizationServiceConfiguration serviceConfig =
                 new AuthorizationServiceConfiguration(
-                        Uri.parse(AUTH_ENDPOINT), // authorization endpoint
-                        Uri.parse(TOKEN_ENDPOINT)// token endpoint
+                        Uri.parse(AUTH_ENDPOINT),   // authorization endpoint
+                        Uri.parse(TOKEN_ENDPOINT)   // token endpoint
                 );
         AuthorizationRequest.Builder authRequestBuilder =
                 new AuthorizationRequest.Builder(

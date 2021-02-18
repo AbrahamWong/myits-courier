@@ -7,6 +7,7 @@ public final class ApiEndpoint {
 
     public static final String ENDPOINT_TOKEN_SSO = BuildConfig.DEV_MYITS_URL + "/token";
 
+    public static final String ENDPOINT_COURIER_USERINFO = BuildConfig.DEV_COURIER_URL + "/sso/detail";
     public static final String ENDPOINT_COURIER_DASHBOARD = BuildConfig.DEV_COURIER_URL + "/dashboard";
 
     public static final String ENDPOINT_COURIER_RIWAYAT_SEMUA = BuildConfig.DEV_COURIER_URL + "/riwayat/semua";
