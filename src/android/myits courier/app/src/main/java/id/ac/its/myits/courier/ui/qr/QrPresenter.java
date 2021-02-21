@@ -28,6 +28,7 @@ import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
 import id.ac.its.myits.courier.utils.AppLogger;
+import id.ac.its.myits.courier.utils.Statics;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Response;
@@ -148,6 +149,8 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                     paket.setKodeInternal(kodeInternal);
                     paket.setStatus(jsonObject.getString("STATUS"));
 
+                    Statics.packageCode = paket.getKodeInternal();
+
                     getStatusLists(paket);
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
@@ -187,7 +190,7 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                 // Seharusnya ini pilihan, jika paket internal memiliki tempat asal dan tujuan yang
                 // zonanya sama, atau dalam Java,  (getZona() tidak ada)
                 //          if (paketInternal.getStatus().equals(statuses.get(1))
-                //                  && paketInternal.getZona() == MainActivity.userZone)
+                //                  && paketInternal.getZona() == Statics.userZone)
                 // pilih status.get(2), jika zonanya berbeda, pilih status.get(3)
             else if (paketInternal.getStatus().equals(statuses.get(1)))
                 statusPosted = statuses.get(2);

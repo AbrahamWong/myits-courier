@@ -17,6 +17,7 @@ import id.ac.its.myits.courier.ui.base.BasePresenter;
 import id.ac.its.myits.courier.ui.main.fragment.home.HomeFragment;
 import id.ac.its.myits.courier.ui.main.fragment.profile.ProfileFragment;
 import id.ac.its.myits.courier.utils.AppLogger;
+import id.ac.its.myits.courier.utils.Statics;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -64,9 +65,9 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                     AppLogger.d("AppAuthSample " + "id / sub " + userInfo.getUserdata().getSub());
 //                    getMvpView().showMessage("Selamat datang " + userInfo.getUserdata().getUsername());
                     ui[0] = userInfo;
-                    MainActivity.username = userInfo.getUserdata().getUsername();
-                    MainActivity.userSsoId = userInfo.getUserdata().getIdSSO();
-                    MainActivity.userZone = userInfo.getUserdata().getZonaCaraka();
+                    Statics.username = userInfo.getUserdata().getUsername();
+                    Statics.userSsoId = userInfo.getUserdata().getIdSSO();
+                    Statics.userZone = userInfo.getUserdata().getZonaCaraka();
 
                     getUnits(userInfo.getUserdata().getUsername());
                 }, throwable -> {
@@ -89,15 +90,17 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
 
                     JSONArray array = jsonObject.getJSONArray("unit");
 
-                    setHomeDetail(username, MainActivity.userZone);
-                    setProfileDetail(username, MainActivity.userZone);
+                    setHomeDetail(username, Statics.userZone);
+                    setProfileDetail(username, Statics.userZone);
 
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonUnit = array.getJSONObject(i);
                         Unit unit = new Unit();
                         unit.set_id(jsonUnit.getInt("id_unit"));
                         unit.setNamaUnit(jsonUnit.getString("nama_unit"));
-                        unit.setJumlahPaket(jsonUnit.getInt("jumlah"));
+                        unit.setJumlahPaketEksternal(jsonUnit.getInt("jumlah_eksternal"));
+                        unit.setJumlahPaketInternalMasuk(jsonUnit.getInt("jumlah_internal_in"));
+                        unit.setJumlahPaketInternalKeluar(jsonUnit.getInt("jumlah_internal_out"));
 
                         unitList.add(unit);
                         AppLogger.d("Unit %s ditambahkan ke unitList", unit.getNamaUnit());

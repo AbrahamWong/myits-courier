@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 
 public interface ApiHelper {
 
-    public static final String MYITS_USER_TAG = "user_myits";
+    String MYITS_USER_TAG = "user_myits";
 
     ApiHeader getApiHeader();
 
@@ -28,12 +28,18 @@ public interface ApiHelper {
     Observable<JSONArray> getUnitDetail(String username, int unitId);
 
     Observable<JSONArray> getExternalJobDetail(int idEksternal);
+
     void postExternalJobEdit(int idPaket, String status, OkHttpResponseListener listener);
+
     Observable<JSONArray> getInternalJobDetail(String kodeInternal);
+
     void postInternalJobEdit(String kodePaket, String status, OkHttpResponseListener listener);
 
     Observable<JSONArray> getExternalStatuses();
+
     Observable<JSONArray> getInternalStatuses();
 
     ANResponse<TokenResponse> doSyncPostRefreshToken(TokenRequest.RefreshTokenRequest request);
+
+    void postProofOfDelivery(String kodePaket, String imgBase64, OkHttpResponseListener listener);
 }

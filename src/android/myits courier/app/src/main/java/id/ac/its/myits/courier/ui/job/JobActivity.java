@@ -1,19 +1,11 @@
 package id.ac.its.myits.courier.ui.job;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.preference.PreferenceManager;
-
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.views.MapView;
 
 import java.util.Locale;
 
@@ -28,8 +20,8 @@ import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.joblist.JobListActivity;
 import id.ac.its.myits.courier.ui.jobstatus.JobStatusActivity;
-import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class JobActivity extends BaseActivity implements JobMvpView {
 
@@ -39,8 +31,8 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @BindView(R.id.changeStatusButton)
     Button changeStatusButton;
 
-    @BindView(R.id.mapView)
-    MapView mapView;
+    // @BindView(R.id.mapView)
+    // MapView mapView;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -80,20 +72,20 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //load/initialize the osmdroid configuration, this can be done
-        Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        //setting this before the layout is inflated is a good idea
-        //it 'should' ensure that the map has a writable location for the map cache, even without permissions
-        //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
-        //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
-        //tile servers will get you banned based on this string
+        // Load/initialize the osmdroid configuration, this can be done
+        // Context ctx = getApplicationContext();
+        // Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        // setting this before the layout is inflated is a good idea
+        // it 'should' ensure that the map has a writable location for the map cache, even without permissions
+        // if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
+        // see also StorageUtils
+        // note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
+        // tile servers will get you banned based on this string
 
         setContentView(R.layout.activity_job_detail);
 
         setUp();
-        initiateMaps();
+        // initiateMaps();
     }
 
     @Override
@@ -108,10 +100,9 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-
-        mapView.getController().setZoom(17.0);
-        mapView.getController().setCenter(mPresenter.getLocation());
+        //mapView.setTileSource(TileSourceFactory.MAPNIK);
+        //mapView.getController().setZoom(17.0);
+        //mapView.getController().setCenter(mPresenter.getLocation());
 
         tipePaket = getIntent().getStringExtra("TIPE_PAKET");
         retrieveData(tipePaket);
@@ -145,7 +136,7 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        goBack(MainActivity.username, idUnit);
+        goBack(Statics.username, idUnit);
         finish(); // or your code
     }
 
@@ -159,48 +150,48 @@ public class JobActivity extends BaseActivity implements JobMvpView {
         startActivity(statusIntent);
     }
 
-    public void initiateMaps() {
-        mPresenter.requestPermissions(
-                // if you need to show the current location, uncomment the line below
-                 Manifest.permission.ACCESS_FINE_LOCATION,
-                // WRITE_EXTERNAL_STORAGE is required in order to show the map
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.INTERNET
-        );
-    }
+    // public void initiateMaps() {
+    //     mPresenter.requestPermissions(
+    //             // if you need to show the current location, uncomment the line below
+    //              Manifest.permission.ACCESS_FINE_LOCATION,
+    //             // WRITE_EXTERNAL_STORAGE is required in order to show the map
+    //             Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    //             Manifest.permission.ACCESS_NETWORK_STATE,
+    //             Manifest.permission.ACCESS_WIFI_STATE,
+    //             Manifest.permission.INTERNET
+    //     );
+    // }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mPresenter.onPermissionsResult(requestCode, permissions, grantResults);
-    }
+    // @Override
+    // public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    //     mPresenter.onPermissionsResult(requestCode, permissions, grantResults);
+    // }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        mapView.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+    // @Override
+    // public void onResume() {
+    //     super.onResume();
+    //     //this will refresh the osmdroid configuration on resuming.
+    //     //if you make changes to the configuration, use
+    //     //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    //     //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+    //     mapView.onResume(); //needed for compass, my location overlays, v6.0.0 and up
 
-        // Refresh tampilan dan reset flag
-        if (fromStatus) {
-            retrieveData(tipePaket);
-            fromStatus = false;
-        }
-    }
+    //     // Refresh tampilan dan reset flag
+    //     if (fromStatus) {
+    //         retrieveData(tipePaket);
+    //         fromStatus = false;
+    //     }
+    // }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().save(this, prefs);
-        mapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
+    // @Override
+    // public void onPause() {
+    //     super.onPause();
+    //     //this will refresh the osmdroid configuration on resuming.
+    //     //if you make changes to the configuration, use
+    //     //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    //     //Configuration.getInstance().save(this, prefs);
+    //     mapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+    // }
 
     @Override
     public void onDataFetched(String id, String tipePaket) {
@@ -214,7 +205,7 @@ public class JobActivity extends BaseActivity implements JobMvpView {
     @Override
     public void setAllExternalText(PaketEksternal paket) {
         deliveryType.setText(getIntent().getStringExtra("TIPE_PAKET"));
-        packageCode.setText(paket.getNomorResi());
+        packageCode.setText(paket.getKodeEksternal());
 
         // Ganti dengan getStringExtra dari activity sebelumnya.
         unitName.setText(paket.getNamaUnit());

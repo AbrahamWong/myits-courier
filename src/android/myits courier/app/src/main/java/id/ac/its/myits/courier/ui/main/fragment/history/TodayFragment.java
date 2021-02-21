@@ -22,16 +22,16 @@ import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.di.component.ActivityComponent;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
-import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class TodayFragment extends BaseFragment implements MainMvpView {
 
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
 
-    private static int columnCount = 1;
+    private static final int columnCount = 1;
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class TodayFragment extends BaseFragment implements MainMvpView {
         TodayRecyclerViewAdapter adapter = new TodayRecyclerViewAdapter(new ArrayList<>(), 0);
         todayList.setAdapter(adapter);
 
-        mPresenter.getTodayHistory(MainActivity.username != null ? MainActivity.username : "");
+        mPresenter.getTodayHistory(Statics.username != null ? Statics.username : "");
     }
 
     @Override

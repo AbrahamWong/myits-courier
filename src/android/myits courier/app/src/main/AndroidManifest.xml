@@ -71,6 +71,7 @@
         <activity android:name=".ui.job.JobActivity" />
         <activity android:name=".ui.joblist.JobListActivity" />
         <activity android:name=".ui.jobstatus.JobStatusActivity" />
+        <activity android:name=".ui.proof.ProofActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

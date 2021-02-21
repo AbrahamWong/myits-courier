@@ -229,4 +229,10 @@ public class CourierDataManager implements DataManager {
     public ANResponse<TokenResponse> doSyncPostRefreshToken(TokenRequest.RefreshTokenRequest request) {
         return mApiHelper.doSyncPostRefreshToken(request);
     }
+
+    @Override
+    public void postProofOfDelivery(String kodePaket, String imgBase64, OkHttpResponseListener listener) {
+        mApiHelper.postProofOfDelivery(kodePaket, imgBase64, listener);
+    }
+
 }

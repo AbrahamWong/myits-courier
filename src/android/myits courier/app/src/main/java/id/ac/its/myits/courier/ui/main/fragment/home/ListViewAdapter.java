@@ -17,17 +17,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.ui.joblist.JobListActivity;
-import id.ac.its.myits.courier.ui.main.MainActivity;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ListViewHolder> {
 
     public ArrayList<String> unitName;
-    public ArrayList<Integer> numOfJobs;
+    //    public ArrayList<Integer> numOfJobs;
+    public ArrayList<Integer> numOfExternalJobs;
+    public ArrayList<Integer> numOfInternalInJobs;
+    public ArrayList<Integer> numOfInternalOutJobs;
     public ArrayList<Integer> unitId;
 
-    public ListViewAdapter(ArrayList<String> unitName, ArrayList<Integer> numOfJobs, ArrayList<Integer> unitId) {
+    public ListViewAdapter(ArrayList<String> unitName,
+                           ArrayList<Integer> numOfExternalJobs,
+                           ArrayList<Integer> numOfInternalInJobs,
+                           ArrayList<Integer> numOfInternalOutJobs,
+                           ArrayList<Integer> unitId) {
         this.unitName = unitName;
-        this.numOfJobs = numOfJobs;
+        this.numOfExternalJobs = numOfExternalJobs;
+        this.numOfInternalInJobs = numOfInternalInJobs;
+        this.numOfInternalOutJobs = numOfInternalOutJobs;
         this.unitId = unitId;
     }
 
@@ -43,13 +52,16 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ListVi
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         holder.unit_name.setText(unitName.get(position));
         holder.number_of_jobs.setText(
-                String.format(Locale.getDefault(), "%d Pekerjaan", numOfJobs.get(position)));
+                String.format(Locale.getDefault(), "%d Paket Eksternal" +
+                                "\n%d Paket Internal yang perlu dikirim" +
+                                "\n%d Paket Internal yang perlu diterima",
+                        numOfExternalJobs.get(position), numOfInternalOutJobs.get(position), numOfInternalInJobs.get(position)));
 
         holder.itemView.setOnClickListener(view -> {
             Context ctx = view.getContext();
             Intent jobListIntent = new Intent(ctx, JobListActivity.class);
             jobListIntent.putExtra("ID_UNIT", unitId.get(position));
-            jobListIntent.putExtra("USERNAME", MainActivity.username);
+            jobListIntent.putExtra("USERNAME", Statics.username);
             ctx.startActivity(jobListIntent);
         });
     }

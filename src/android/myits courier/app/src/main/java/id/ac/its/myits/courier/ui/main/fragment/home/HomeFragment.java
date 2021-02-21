@@ -24,10 +24,10 @@ import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.di.component.ActivityComponent;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
-import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
 import id.ac.its.myits.courier.utils.AppLogger;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class HomeFragment extends BaseFragment implements MainMvpView {
 
@@ -60,9 +60,9 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
 
         // Jika seandainya sudah pernah request nama pengguna dan zona, tidak perlu menunggu
         // request daftar unit selesai untuk set text
-        if (MainActivity.username != null) {
-            name.setText(MainActivity.username);
-            zone.setText(MainActivity.userZone);
+        if (Statics.username != null) {
+            name.setText(Statics.username);
+            zone.setText(Statics.userZone);
         }
 
 //        TextView usernameText = v.findViewById(R.id.homeNameText);
@@ -109,18 +109,7 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
 
     @Override
     public void showUnitList(ArrayList<Unit> unitList) {
-        // Change this to data from API
-        ArrayList<String> unitName = new ArrayList<>();
-        ArrayList<Integer> numOfJobs = new ArrayList<>();
-        ArrayList<Integer> unitId = new ArrayList<>();
-
-        for (Unit unit : unitList) {
-            unitName.add(unit.getNamaUnit());
-            numOfJobs.add(unit.getJumlahPaket());
-            unitId.add(unit.get_id());
-        }
-
-        showRecycler(getView(), unitName, numOfJobs, unitId);
+        showRecycler(getView(), unitList);
     }
 
     @Override
@@ -133,10 +122,29 @@ public class HomeFragment extends BaseFragment implements MainMvpView {
 
     }
 
-    void showRecycler(View view, ArrayList<String> unitName, ArrayList<Integer> numOfJobs, ArrayList<Integer> unitId) {
-        RecyclerView homeListView = view.findViewById(R.id.homeListview);
-        ListViewAdapter adapter = new ListViewAdapter(unitName, numOfJobs, unitId);
-        homeListView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    void showRecycler(View v, ArrayList<Unit> unitList) {
+        RecyclerView homeListView = v.findViewById(R.id.homeListview);
+        ArrayList<String> unitName = new ArrayList<>();
+        ArrayList<Integer> numOfExternalJobs = new ArrayList<>();
+        ArrayList<Integer> numOfInternalInJobs = new ArrayList<>();
+        ArrayList<Integer> numOfInternalOutJobs = new ArrayList<>();
+        ArrayList<Integer> unitId = new ArrayList<>();
+
+        for (Unit unit : unitList) {
+            unitName.add(unit.getNamaUnit());
+            numOfExternalJobs.add(unit.getJumlahPaketEksternal());
+            numOfInternalInJobs.add(unit.getJumlahPaketInternalMasuk());
+            numOfInternalOutJobs.add(unit.getJumlahPaketInternalKeluar());
+            unitId.add(unit.get_id());
+        }
+
+        ListViewAdapter adapter = new ListViewAdapter(unitName,
+                numOfExternalJobs,
+                numOfInternalInJobs,
+                numOfInternalOutJobs,
+                unitId);
+
+        homeListView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         homeListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

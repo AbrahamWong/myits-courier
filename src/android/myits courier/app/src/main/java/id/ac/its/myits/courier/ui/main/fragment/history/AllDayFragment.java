@@ -21,9 +21,9 @@ import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.di.component.ActivityComponent;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
-import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class AllDayFragment extends BaseFragment implements MainMvpView {
 
@@ -57,7 +57,7 @@ public class AllDayFragment extends BaseFragment implements MainMvpView {
         TodayRecyclerViewAdapter adapter = new TodayRecyclerViewAdapter(new ArrayList<>(), 0);
         allList.setAdapter(adapter);
 
-        mPresenter.getAllHistory(MainActivity.username != null ? MainActivity.username : "");
+        mPresenter.getAllHistory(Statics.username != null ? Statics.username : "");
     }
 
     @Override

@@ -163,4 +163,15 @@ public class CourierApiHelper implements ApiHelper{
 
         return anRequest.executeForObject(TokenResponse.class);
     }
+
+    @Override
+    public void postProofOfDelivery(String kodePaket, String imgBase64, OkHttpResponseListener listener) {
+        Rx2AndroidNetworking
+                .post(ApiEndpoint.ENDPOINT_COURIER_SIMPAN_BUKTI_CARAKA + "/" + kodePaket)
+                .addBodyParameter("foto_bukti", imgBase64)
+                .setTag(MYITS_USER_TAG)
+                .addHeaders(this.getApiHeader().getProtectedApiHeader())
+                .build()
+                .getAsOkHttpResponse(listener);
+    }
 }

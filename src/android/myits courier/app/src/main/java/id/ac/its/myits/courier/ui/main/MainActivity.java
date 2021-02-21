@@ -39,10 +39,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigation;
 
-    public static String username = null;
-    public static String userZone = null;
-    public static String userSsoId = null;
-
     public static Intent getStartIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }

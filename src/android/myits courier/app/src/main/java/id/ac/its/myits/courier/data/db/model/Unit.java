@@ -17,19 +17,25 @@ public class Unit {
     @SerializedName("no_telp")
     private String nomorTelepon;
 
-    @SerializedName("jumlah")
-    private int jumlahPaket;
+    @SerializedName("jumlah_eksternal")
+    private int jumlahPaketEksternal;
+
+    @SerializedName("jumlah_internal_in")
+    private int jumlahPaketInternalMasuk;
+
+    @SerializedName("jumlah_internal_out")
+    private int jumlahPaketInternalKeluar;
 
     public Unit() {
     }
 
-    public Unit(int _id, String namaUnit, String alamat, String tipeUnit, String nomorTelepon, int jumlahPaket) {
+    public Unit(int _id, String namaUnit, String alamat, String tipeUnit, String nomorTelepon, int jumlahPaketEksternal) {
         this._id = _id;
         this.namaUnit = namaUnit;
         this.alamat = alamat;
         this.tipeUnit = tipeUnit;
         this.nomorTelepon = nomorTelepon;
-        this.jumlahPaket = jumlahPaket;
+        this.jumlahPaketEksternal = jumlahPaketEksternal;
     }
 
     public int get_id() {
@@ -72,11 +78,31 @@ public class Unit {
         this.nomorTelepon = nomorTelepon;
     }
 
-    public int getJumlahPaket() {
-        return jumlahPaket;
+    public int getJumlahPaketEksternal() {
+        return jumlahPaketEksternal;
     }
 
-    public void setJumlahPaket(int jumlahPaket) {
-        this.jumlahPaket = jumlahPaket;
+    public void setJumlahPaketEksternal(int jumlahPaketEksternal) {
+        this.jumlahPaketEksternal = jumlahPaketEksternal;
+    }
+
+    public int getJumlahPaketInternalMasuk() {
+        return jumlahPaketInternalMasuk;
+    }
+
+    public void setJumlahPaketInternalMasuk(int jumlahPaketInternalMasuk) {
+        this.jumlahPaketInternalMasuk = jumlahPaketInternalMasuk;
+    }
+
+    public int getJumlahPaketInternalKeluar() {
+        return jumlahPaketInternalKeluar;
+    }
+
+    public void setJumlahPaketInternalKeluar(int jumlahPaketInternalKeluar) {
+        this.jumlahPaketInternalKeluar = jumlahPaketInternalKeluar;
+    }
+
+    public int getJumlahPaket() {
+        return this.jumlahPaketEksternal + this.jumlahPaketInternalMasuk + this.jumlahPaketInternalKeluar;
     }
 }

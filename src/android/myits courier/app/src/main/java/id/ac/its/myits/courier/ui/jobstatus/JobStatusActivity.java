@@ -1,11 +1,13 @@
 package id.ac.its.myits.courier.ui.jobstatus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,6 +21,7 @@ import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.job.JobActivity;
+import id.ac.its.myits.courier.ui.proof.ProofActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
 
 public class JobStatusActivity extends BaseActivity implements JobStatusMvpView {
@@ -42,6 +45,9 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     RadioButton status4;
     @BindView(R.id.status_5)
     RadioButton status5;
+
+    @BindView(R.id.changeStatusLabel)
+    TextView changeStatusLabel;
 
     @BindView(R.id.confirmStatusButton)
     Button confirmStatusButton;
@@ -70,6 +76,8 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
 
         deliveryType = getIntent().getStringExtra("TIPE_PAKET");
         AppLogger.d("%s adalah tipe paket", deliveryType);
+
+        changeStatusLabel.setText(getResources().getText(R.string.change_packet_status) + " " + deliveryType);
         if (deliveryType.equals("Eksternal")) {
             mPresenter.getExternalStatuses();
         } else if (deliveryType.equals("Internal")) {
@@ -163,6 +171,7 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
                         mPresenter.postInternalStatus(kodePaket, String.valueOf(status4.getText()));
                         break;
                     case R.id.status_5:
+                        startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
                         mPresenter.postInternalStatus(kodePaket, String.valueOf(status5.getText()));
                         break;
                 }
@@ -176,6 +185,7 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
                         mPresenter.postExternalStatus(idPaket, String.valueOf(status2.getText()));
                         break;
                     case R.id.status_3:
+                        startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
                         mPresenter.postExternalStatus(idPaket, String.valueOf(status3.getText()));
                         break;
                 }

@@ -9,7 +9,7 @@ public class PaketEksternal implements Parcelable {
     @SerializedName("id_paket_eksternal")
     private int idPaket;
     @SerializedName("kode")
-    private String nomorResi;
+    private String kodeEksternal;
     @SerializedName("nama_petugas")
     private String namaPetugas;
 
@@ -35,11 +35,11 @@ public class PaketEksternal implements Parcelable {
     public PaketEksternal() {
     }
 
-    public PaketEksternal(int idPaket, String nomorResi, String namaPetugas, int jumlah_paket,
+    public PaketEksternal(int idPaket, String kodeEksternal, String namaPetugas, int jumlah_paket,
                           String status, String deskripsiPaket, String tanggal_terima,
                           int beratMinimal, int beratMaksimal, String namaUnit) {
         this.idPaket = idPaket;
-        this.nomorResi = nomorResi;
+        this.kodeEksternal = kodeEksternal;
         this.namaPetugas = namaPetugas;
         this.jumlah_paket = jumlah_paket;
         this.status = status;
@@ -58,12 +58,20 @@ public class PaketEksternal implements Parcelable {
         this.idPaket = idPaket;
     }
 
-    public String getNomorResi() {
-        return nomorResi;
+    public PaketEksternal(Parcel in) {
+        idPaket = in.readInt();
+        kodeEksternal = in.readString();
+        namaPetugas = in.readString();
+        jumlah_paket = in.readInt();
+        status = in.readString();
+        deskripsiPaket = in.readString();
+        tanggal_terima = in.readString();
+        beratMinimal = in.readInt();
+        beratMaksimal = in.readInt();
     }
 
-    public void setNomorResi(String nomorResi) {
-        this.nomorResi = nomorResi;
+    public String getKodeEksternal() {
+        return kodeEksternal;
     }
 
     public String getNamaPetugas() {
@@ -134,22 +142,14 @@ public class PaketEksternal implements Parcelable {
         return CREATOR;
     }
 
-    public PaketEksternal(Parcel in) {
-        idPaket = in.readInt();
-        nomorResi = in.readString();
-        namaPetugas = in.readString();
-        jumlah_paket = in.readInt();
-        status = in.readString();
-        deskripsiPaket = in.readString();
-        tanggal_terima = in.readString();
-        beratMinimal = in.readInt();
-        beratMaksimal = in.readInt();
+    public void setKodeEksternal(String kodeEksternal) {
+        this.kodeEksternal = kodeEksternal;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(idPaket);
-        dest.writeString(nomorResi);
+        dest.writeString(kodeEksternal);
         dest.writeString(namaPetugas);
         dest.writeInt(jumlah_paket);
         dest.writeString(status);

@@ -18,6 +18,7 @@ import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.db.model.PaketEksternal;
 import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
+import id.ac.its.myits.courier.utils.Statics;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -74,13 +75,15 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     // Pasang manual karena APInya berbentuk JSONArray, bukan PaketEksternal.class
                     PaketEksternal paket = new PaketEksternal();
                     paket.setIdPaket(id);
-                    paket.setNomorResi(jsonObject.getString("kode"));
+                    paket.setKodeEksternal(jsonObject.getString("kode"));
                     paket.setNamaPetugas(jsonObject.getString("nama_petugas"));
                     paket.setStatus(jsonObject.getString("status"));
                     paket.setBeratMinimal(jsonObject.getInt("berat_minimal"));
                     paket.setBeratMaksimal(jsonObject.getInt("berat_maksimal"));
                     paket.setDeskripsiPaket(jsonObject.getString("deskripsi"));
                     paket.setNamaUnit(jsonObject.getString("nama_unit"));
+
+                    Statics.packageCode = paket.getKodeEksternal();
 
                     getMvpView().setAllExternalText(paket);
                     getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));
@@ -112,6 +115,8 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setBerat_maksimal(jsonObject.getInt("berat_maksimal"));
                     paket.setDeskripsi(jsonObject.getString("deskripsi"));
                     paket.setNamaUnit(jsonObject.getString("nama_unit"));
+
+                    Statics.packageCode = paket.getKodeInternal();
 
                     getMvpView().setAllInternalText(paket);
                     getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));

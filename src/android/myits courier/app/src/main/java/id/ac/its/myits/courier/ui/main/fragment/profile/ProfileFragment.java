@@ -25,9 +25,9 @@ import id.ac.its.myits.courier.data.db.model.DetilPekerjaan;
 import id.ac.its.myits.courier.data.db.model.Unit;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
 import id.ac.its.myits.courier.ui.login.LoginActivity;
-import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class ProfileFragment extends BaseFragment implements MainMvpView {
 
@@ -59,11 +59,11 @@ public class ProfileFragment extends BaseFragment implements MainMvpView {
 
         setUnBinder(ButterKnife.bind(this, view));
 
-        mPresenter.onAttach((MainMvpView) ProfileFragment.this);
+        mPresenter.onAttach(ProfileFragment.this);
 
-        if (MainActivity.username != null) {
-            profileName.setText(MainActivity.username);
-            profileLocation.setText("Zona " + MainActivity.userZone);
+        if (Statics.username != null) {
+            profileName.setText(Statics.username);
+            profileLocation.setText("Zona " + Statics.userZone);
         }
     }
 

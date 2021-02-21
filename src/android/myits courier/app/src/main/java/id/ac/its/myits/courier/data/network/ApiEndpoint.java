@@ -23,4 +23,6 @@ public final class ApiEndpoint {
 
     public static final String ENDPOINT_COURIER_DAFTAR_STATUS_EKSTERNAL = BuildConfig.DEV_COURIER_URL + "/status/eksternal";
     public static final String ENDPOINT_COURIER_DAFTAR_STATUS_INTERNAL = BuildConfig.DEV_COURIER_URL + "/status/internal";
+
+    public static final String ENDPOINT_COURIER_SIMPAN_BUKTI_CARAKA = BuildConfig.DEV_COURIER_URL + "/bukti/simpan";
 }
