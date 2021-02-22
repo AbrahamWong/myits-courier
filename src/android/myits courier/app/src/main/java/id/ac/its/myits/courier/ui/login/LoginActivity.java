@@ -34,8 +34,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @BindView(R.id.button_login)
     Button buttonLogin;
 
-    private final String AUTH_ENDPOINT = BuildConfig.DEV_MYITS_URL + "/authorize";
-    private final String TOKEN_ENDPOINT = BuildConfig.DEV_MYITS_URL + "/token";
+    private final String AUTH_ENDPOINT = BuildConfig.MYITS_URL + "/authorize";
+    private final String TOKEN_ENDPOINT = BuildConfig.MYITS_URL + "/token";
     private final Uri REDIRECT_URI = Uri.parse(BuildConfig.REDIRECT_URI);
     private final String CLIENT_ID = BuildConfig.CLIENT_ID;
     public static final String LOG_TAG = "AppAuthSample";
