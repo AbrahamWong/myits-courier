@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.job.JobActivity;
+import id.ac.its.myits.courier.ui.main.MainActivity;
 import id.ac.its.myits.courier.ui.proof.ProofActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
 
@@ -106,6 +107,10 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         handler.postDelayed(() -> {
             changeStatus(deliveryType, option);
             JobActivity.fromStatus = true;
+
+            Intent homeIntent = new Intent(JobStatusActivity.this, MainActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(homeIntent);
             finish();
         }, 800);
 

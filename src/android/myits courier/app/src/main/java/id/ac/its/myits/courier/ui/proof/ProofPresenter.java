@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -66,9 +65,6 @@ public class ProofPresenter<V extends ProofMvpView> extends BasePresenter<V>
     public void checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(proofActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
-            // You can use the API that requires the permission.
-            Toast.makeText(proofActivity, "Permission granted", Toast.LENGTH_SHORT).show();
-
             // Here is the main function to get the picture, in the vicinity.
             capturePhotoIntent();
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(proofActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
