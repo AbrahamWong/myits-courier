@@ -107,10 +107,6 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         handler.postDelayed(() -> {
             changeStatus(deliveryType, option);
             JobActivity.fromStatus = true;
-
-            Intent homeIntent = new Intent(JobStatusActivity.this, MainActivity.class);
-            homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(homeIntent);
             finish();
         }, 800);
 
@@ -159,6 +155,10 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     private void changeStatus(String deliveryType, RadioButton selectedRadio) {
         String kodePaket = getIntent().getStringExtra("KODE_PAKET");
         int idPaket = getIntent().getIntExtra("ID_PAKET", 0);
+
+        Intent homeIntent = new Intent(JobStatusActivity.this, MainActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(homeIntent);
 
         switch (deliveryType) {
             case "Internal":

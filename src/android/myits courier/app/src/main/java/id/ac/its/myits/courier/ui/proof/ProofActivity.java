@@ -68,8 +68,6 @@ public class ProofActivity extends BaseActivity implements ProofMvpView {
             File f = new File(mPresenter.getCurrentPhotoPath());
             Uri contentUri = Uri.fromFile(f);
 
-            Toast.makeText(this, "Uri " + contentUri.toString(), Toast.LENGTH_SHORT).show();
-
             // show base64 version of img
             mPresenter.convertImgToBase64();
         }
