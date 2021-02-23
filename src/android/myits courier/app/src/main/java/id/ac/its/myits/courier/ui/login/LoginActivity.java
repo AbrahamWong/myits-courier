@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                         REDIRECT_URI); // the redirect URI to which the auth response is sent
 
         AuthorizationRequest authRequest = authRequestBuilder
-                .setScope("profile openid")
+                .setScope("profile")
                 .build();
 
         Intent authIntent = mAuthService.getAuthorizationRequestIntent(authRequest);

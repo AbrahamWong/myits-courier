@@ -34,6 +34,10 @@ android {
 
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
+            //Sandbox
+//            buildConfigField "String", "CLIENT_ID", "\"BD13563E-6550-4A1D-9DE0-0A9BB1593D65\""
+//            buildConfigField "String", "CLIENT_SECRET", "\"8mxsgjwivuo0go8kwg8s0gs8\""
+            //Production
             buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
             buildConfigField "String", "CLIENT_SECRET", "\"el2ezfu7660woscw8so80w8k\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -45,8 +49,13 @@ android {
             buildConfigField "String", "MYITS_URL", "\"https://my.its.ac.id\""
             buildConfigField "String", "DEV_COURIER_URL", "\"https://api.its.ac.id:8443/courier-sandbox/1.0\""
             buildConfigField "String", "COURIER_URL", "\"https://api.its.ac.id:8443/courier/1.0\""
+
             buildConfigField "String", "API_KEY", "\"MEtxYVBUS3lwYXB5V1VSOU1aSUxaVnh0YTEwYTpjQXFEc004aGhFTEw4WmJuSGY3c2Q4eE5GSTRh\""
             buildConfigField "String", "APP_TOKEN", "\"c6bfed35-68cc-3dd0-89c4-5ec6fddaadbd\""
+            //Sandbox
+//            buildConfigField "String", "CLIENT_ID", "\"BD13563E-6550-4A1D-9DE0-0A9BB1593D65\""
+//            buildConfigField "String", "CLIENT_SECRET", "\"8mxsgjwivuo0go8kwg8s0gs8\""
+            //Production
             buildConfigField "String", "CLIENT_ID", "\"32E4D33A-914B-4F6D-989F-78C412E5837A\""
             buildConfigField "String", "CLIENT_SECRET", "\"el2ezfu7660woscw8so80w8k\""
             //minifyEnabled false

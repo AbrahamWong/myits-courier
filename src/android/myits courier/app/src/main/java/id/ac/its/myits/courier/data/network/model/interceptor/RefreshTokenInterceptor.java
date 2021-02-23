@@ -27,7 +27,8 @@ import okhttp3.Response;
         }
 
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(Interceptor.Chain chain) throws IOException {
+
             Request request = chain.request();
             Response response = chain.proceed(request);
 
@@ -36,14 +37,16 @@ import okhttp3.Response;
                 AppLogger.d("Access token is expired!");
                 AppLogger.d("Intercepting request for refresh token");
 
-                ANResponse<TokenResponse> anResponse = refreshToken();
-
                 synchronized (this) {
+
+                    ANResponse<TokenResponse> anResponse = refreshToken();
+
                     if (anResponse.isSuccess()) {
                         if (anResponse.getOkHttpResponse().code() == 200) {
+
                             dataManager.setAccessToken(anResponse.getResult().getAccessToken());
                             dataManager.setRefreshToken(anResponse.getResult().getRefreshToken());
-
+                            //dataManager.setTokenExpiration(anResponse.getResult().getExpiresIn());
                             dataManager.updateApiHeader(anResponse.getResult().getAccessToken());
 
                             AppLogger.d("Refresh token " + anResponse.getResult().getRefreshToken() );
@@ -56,21 +59,22 @@ import okhttp3.Response;
                             request = builder.build();
 
                             return chain.proceed(request);
-                        }
-                        else if (anResponse.getOkHttpResponse().code() == 400) { //bad request, wrong refresh token
+                        } else if (anResponse.getOkHttpResponse().code() == 400) { //bad request, wrong refresh token
                             AppLogger.d("Error while refreshing token , bad request");
                             errorListener.onError(anResponse.getOkHttpResponse().code());
                         }
-                    }
-                    else {
+                    } else {
+
                         AppLogger.d("Error while refreshing token, not success");
                         errorListener.onError(anResponse.getOkHttpResponse().code());
                     }
 
-                    AndroidNetworking.forceCancel(ApiHelper.MYITS_USER_TAG);
-
                 }
+
+                AndroidNetworking.forceCancel(ApiHelper.MYITS_USER_TAG);
+
             }
+
             return response;
         }
 
@@ -86,7 +90,7 @@ import okhttp3.Response;
 
             final TokenRequest.RefreshTokenRequest request = new TokenRequest.RefreshTokenRequest();
             request.setRefreshToken(currentRefreshToken);
-            AppLogger.d("currentrefreshtoken " + currentRefreshToken);
+            AppLogger.d("currentrefreshtoken" + currentRefreshToken);
             request.setGrantType("refresh_token");
             request.setClientId(BuildConfig.CLIENT_ID);
             request.setClientSecret(BuildConfig.CLIENT_SECRET);
@@ -94,15 +98,11 @@ import okhttp3.Response;
             ANResponse<TokenResponse> response = dataManager.doSyncPostRefreshToken(request);
 
             return response;
-
         }
-
-
 
         public interface RefreshTokenErrorListener {
 
             void onError(int code);
 
-         }
-}
-
+        }
+    }

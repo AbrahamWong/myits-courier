@@ -29,7 +29,7 @@ ext {
     // Versions
     versionMajor = 1
     versionMinor = 0
-    versionPatch = 0
+    versionPatch = 1
     versionClassifier = null
     isSnapshot = false
 
