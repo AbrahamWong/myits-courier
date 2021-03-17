@@ -76,6 +76,7 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     PaketEksternal paket = new PaketEksternal();
                     paket.setIdPaket(id);
                     paket.setKodeEksternal(jsonObject.getString("kode"));
+//                    paket.setKodeEksternal(jsonObject.getString("nomor_resi"));
                     paket.setNamaPetugas(jsonObject.getString("nama_petugas"));
                     paket.setStatus(jsonObject.getString("status"));
                     paket.setBeratMinimal(jsonObject.getInt("berat_minimal"));
@@ -110,16 +111,16 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setIdPaket(jsonObject.getInt("id_paket"));
                     paket.setKodeInternal(kodePaket);
                     paket.setNama_tu(jsonObject.getString("nama_petugas"));
-                    paket.setStatus(jsonObject.getString("STATUS"));
+                    paket.setStatus(jsonObject.getString("status"));
                     paket.setBerat_minimal(jsonObject.getInt("berat_minimal"));
                     paket.setBerat_maksimal(jsonObject.getInt("berat_maksimal"));
                     paket.setDeskripsi(jsonObject.getString("deskripsi"));
-                    paket.setNamaUnit(jsonObject.getString("nama_unit"));
+                    paket.setNamaUnit(jsonObject.getString("nama_unit_asal"));
 
                     Statics.packageCode = paket.getKodeInternal();
 
                     getMvpView().setAllInternalText(paket);
-                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));
+                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit_asal"));
                     getMvpView().hideLoading();
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {

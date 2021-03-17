@@ -5,4 +5,6 @@ public class Statics {
     public static String userZone = null;
     public static String userSsoId = null;
     public static String packageCode = null;
+
+    public static String unitName = null;
 }

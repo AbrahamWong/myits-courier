@@ -2,9 +2,9 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srl_joblist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/srl_joblist"
     android:orientation="vertical"
     tools:context=".ui.joblist.JobListActivity">
 
@@ -32,14 +32,31 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/colorBase">
+
+            <!-- nama unit -->
+            <TextView
+                android:id="@+id/unitText"
+                style="@style/TextAppearance.MyITSCourier.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:maxLines="2"
+                android:text="@string/unit_name"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- list pekerjaan -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/jobListRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorBase"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unitText"
                 tools:listitem="@layout/activity_job_list_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

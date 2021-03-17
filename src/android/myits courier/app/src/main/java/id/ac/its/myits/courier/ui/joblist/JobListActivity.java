@@ -2,6 +2,7 @@ package id.ac.its.myits.courier.ui.joblist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import id.ac.its.myits.courier.ui.adapter.JobListAdapter;
 import id.ac.its.myits.courier.ui.base.BaseActivity;
 import id.ac.its.myits.courier.ui.job.JobActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
+import id.ac.its.myits.courier.utils.Statics;
 
 public class JobListActivity extends BaseActivity implements JobListMvpView {
 
@@ -25,6 +27,9 @@ public class JobListActivity extends BaseActivity implements JobListMvpView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.unitText)
+    TextView unitText;
 
     @BindView(R.id.jobListRecyclerView)
     RecyclerView jobListRecyclerView;
@@ -57,6 +62,7 @@ public class JobListActivity extends BaseActivity implements JobListMvpView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         username = getIntent().getStringExtra("USERNAME");
+        unitText.setText(Statics.unitName);
         idUnit = getIntent().getIntExtra("ID_UNIT", 0);
         AppLogger.d("Id unit %d with username %s.\n\n", idUnit, username);
         mPresenter.getUnitDetails(username, idUnit);

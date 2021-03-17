@@ -50,9 +50,11 @@
     <string name="today">Hari Ini</string>
     <string name="allday">Semua</string>
     <string name="delivery_type_text">Penjemputan Internal</string>
-    <string name="kode">Kode : </string>
+    <string name="kode">Kode:\u0020</string>
+    <string name="shift">Jadwal Pengiriman:\u0020</string>
     <string name="delivery_status_text">Menunggu dijemput</string>
     <string name="code_packet_text">ABCDEG6H788</string>
+    <string name="shift_text">17 Maret 2021, 08:00 – 10:00</string>
     <string name="unit">Unit</string>
     <string name="pic_packet">PIC Paket</string>
     <string name="pic_packet_text">Mang Oleh</string>
@@ -66,7 +68,7 @@
     <string name="timeline">Linimasa</string>
     <string name="navigation">Navigasi</string>
     <string name="change_status">Ganti Status</string>
-    <string name="status_">Status :</string>
+    <string name="status_">Status:\u0020</string>
     <string name="receiver_name_text">Bpk Superman</string>
     <string name="change_packet_status">Ganti status paket</string>
     <string name="paket_sudah_dijemput">Paket sudah dijemput</string>

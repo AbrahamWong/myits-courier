@@ -23,6 +23,17 @@ public class JobStatusPresenter<V extends JobStatusMvpView> extends BasePresente
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    private String statusPrefix;
+
+    @Override
+    public String getStatusPrefix() {
+        return statusPrefix;
+    }
+
+    public void setStatusPrefix(String statusPrefix) {
+        this.statusPrefix = statusPrefix;
+    }
+
     @Override
     public void getExternalStatuses() {
         getDataManager().getExternalStatuses()
@@ -32,8 +43,14 @@ public class JobStatusPresenter<V extends JobStatusMvpView> extends BasePresente
                     ArrayList<String> statuses = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        // Format status telah diketahui, dan diminta untuk menghilangkan 2 kata pertama agar
+                        // mengurangi pemakaian kata yang berlebihan dan berulang.
                         String status = jsonArray.getJSONObject(i).getString("status");
-                        statuses.add(status);
+                        setStatusPrefix(status.substring(0, status.indexOf(" ", 6)));
+
+                        String newStatus = status.substring(status.indexOf(" ", 6) + 1);
+                        newStatus = newStatus.substring(0, 1).toUpperCase() + newStatus.substring(1);
+                        statuses.add(newStatus);
                     }
 
                     getMvpView().onExternalListGet(statuses);
@@ -55,8 +72,14 @@ public class JobStatusPresenter<V extends JobStatusMvpView> extends BasePresente
                     ArrayList<String> statuses = new ArrayList<>();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        // Format status telah diketahui, dan diminta untuk menghilangkan 2 kata pertama agar
+                        // mengurangi pemakaian kata yang berlebihan dan berulang.
                         String status = jsonArray.getJSONObject(i).getString("status");
-                        statuses.add(status);
+                        setStatusPrefix(status.substring(0, status.indexOf(" ", 6)));
+
+                        String newStatus = status.substring(status.indexOf(" ", 6) + 1);
+                        newStatus = newStatus.substring(0, 1).toUpperCase() + newStatus.substring(1);
+                        statuses.add(newStatus);
                     }
 
                     getMvpView().onInternalListGet(statuses);

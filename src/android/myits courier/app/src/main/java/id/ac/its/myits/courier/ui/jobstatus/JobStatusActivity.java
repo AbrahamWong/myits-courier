@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -78,7 +79,11 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         deliveryType = getIntent().getStringExtra("TIPE_PAKET");
         AppLogger.d("%s adalah tipe paket", deliveryType);
 
-        changeStatusLabel.setText(getResources().getText(R.string.change_packet_status) + " " + deliveryType);
+        String statusLabel = String.format(Locale.getDefault(),
+                "%s %s",
+                getResources().getText(R.string.change_packet_status),
+                deliveryType);
+        changeStatusLabel.setText(statusLabel);
         if (deliveryType.equals("Eksternal")) {
             mPresenter.getExternalStatuses();
         } else if (deliveryType.equals("Internal")) {
@@ -136,18 +141,19 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         status2.setText(status.get(1));
         status3.setText(status.get(2));
         status4.setText(status.get(3));
-        status5.setText(status.get(4));
+        status5.setVisibility(View.GONE);
 
         String jobStatus = getIntent().getStringExtra("STATUS");
-        if (status.get(0).equals(jobStatus)) {
+        String newStatus = jobStatus.substring(jobStatus.indexOf(" ", 6) + 1);
+        if (status.get(0).equals(newStatus)) {
             status1.setChecked(true);
-        } else if (status.get(1).equals(jobStatus)) {
+        } else if (status.get(1).equals(newStatus)) {
             status2.setChecked(true);
-        } else if (status.get(2).equals(jobStatus)) {
+        } else if (status.get(2).equals(newStatus)) {
             status3.setChecked(true);
-        } else if (status.get(3).equals(jobStatus)) {
+        } else if (status.get(3).equals(newStatus)) {
             status4.setChecked(true);
-        } else if (status.get(4).equals(jobStatus)) {
+        } else if (status.get(4).equals(newStatus)) {
             status5.setChecked(true);
         }
     }
@@ -164,34 +170,34 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
             case "Internal":
                 switch (selectedRadio.getId()) {
                     case R.id.status_1:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status1.getText()));
+                        mPresenter.postInternalStatus(kodePaket, "1");
                         break;
                     case R.id.status_2:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status2.getText()));
+                        mPresenter.postInternalStatus(kodePaket, "2");
                         break;
                     case R.id.status_3:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status3.getText()));
+                        mPresenter.postInternalStatus(kodePaket, "3");
                         break;
                     case R.id.status_4:
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status4.getText()));
+                        mPresenter.postInternalStatus(kodePaket, "4");
                         break;
                     case R.id.status_5:
                         startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
-                        mPresenter.postInternalStatus(kodePaket, String.valueOf(status5.getText()));
+                        mPresenter.postInternalStatus(kodePaket, "5");
                         break;
                 }
                 break;
             case "Eksternal":
                 switch (selectedRadio.getId()) {
                     case R.id.status_1:
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status1.getText()));
+                        mPresenter.postExternalStatus(idPaket, "1");
                         break;
                     case R.id.status_2:
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status2.getText()));
+                        mPresenter.postExternalStatus(idPaket, "2");
                         break;
                     case R.id.status_3:
                         startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
-                        mPresenter.postExternalStatus(idPaket, String.valueOf(status3.getText()));
+                        mPresenter.postExternalStatus(idPaket, "3");
                         break;
                 }
                 break;

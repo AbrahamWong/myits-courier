@@ -135,17 +135,20 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonJobs = array.getJSONObject(i);
                         DetilPekerjaan jobDetail = new DetilPekerjaan();
-//                        jobDetail.setIdPaket(jsonJobs.getInt("id"));
                         jobDetail.setStatus(jsonJobs.getString("STATUS"));
                         jobDetail.setKodePaket(jsonJobs.getString("kode"));
                         jobDetail.setNamaPetugas(jsonJobs.getString("nama_petugas"));
                         jobDetail.setJumlahPaket(jsonJobs.getInt("jumlah"));
-                         jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
+                        jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
                         jobDetail.setTanggal(jsonJobs.getString("tanggal"));
 
                         AppLogger.d("%s ditambahkan ke jobList", jobDetail.getKodePaket());
                         jobList.add(jobDetail);
                     }
+
+                    Comparator<DetilPekerjaan> allHistoryComparator = Comparator.comparing(DetilPekerjaan::getTanggalAsDate);
+                    Collections.sort(jobList, allHistoryComparator);
+                    Collections.reverse(jobList);
 
                     getMvpView().showAllHistory(jobList, total);
                     AppLogger.d("%d paket secara keseluruhan", total);
@@ -173,17 +176,20 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonJobs = array.getJSONObject(i);
                         DetilPekerjaan jobDetail = new DetilPekerjaan();
-//                        jobDetail.setIdPaket(jsonJobs.getInt("id"));
                         jobDetail.setStatus(jsonJobs.getString("STATUS"));
                         jobDetail.setKodePaket(jsonJobs.getString("kode"));
                         jobDetail.setNamaPetugas(jsonJobs.getString("nama_petugas"));
                         jobDetail.setJumlahPaket(jsonJobs.getInt("jumlah"));
-                         jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
+                        jobDetail.setJenisPaket(jsonJobs.getString("jenis"));
                         jobDetail.setTanggal(jsonJobs.getString("tanggal"));
 
                         AppLogger.d("%s ditambahkan ke jobList", jobDetail.getKodePaket());
                         jobList.add(jobDetail);
                     }
+
+                    Comparator<DetilPekerjaan> todayHistoryComparator = Comparator.comparing(DetilPekerjaan::getTanggalAsDate);
+                    Collections.sort(jobList, todayHistoryComparator);
+                    Collections.reverse(jobList);
 
                     getMvpView().showAllHistory(jobList, total);
                     getMvpView().hideLoading();

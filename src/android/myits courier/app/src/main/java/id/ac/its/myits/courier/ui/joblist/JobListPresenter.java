@@ -53,6 +53,11 @@ public class JobListPresenter<V extends JobListMvpView> extends BasePresenter<V>
                         jobDetail.setJumlahPaket(jsonObject.getInt("jumlah"));
                         jobDetail.setJenisPaket(jsonObject.getString("jenis"));
 
+                        jobDetail.setTanggalPengiriman(jsonObject.getString("tanggal_pengiriman"));
+                        jobDetail.setJamAwal(jsonObject.getString("jam_mulai"));
+                        jobDetail.setJamAkhir(jsonObject.getString("jam_selesai"));
+                        jobDetail.setTerlambat(jsonObject.getInt("is_telat"));
+
                         jobList.add(jobDetail);
                     }
                     JobListAdapter adapter = new JobListAdapter(jobList);
