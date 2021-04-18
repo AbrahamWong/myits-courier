@@ -7,4 +7,7 @@ public class Statics {
     public static String packageCode = null;
 
     public static String unitName = null;
+
+    // Khusus untuk Internal
+    public static int currentUnitId = 0;
 }

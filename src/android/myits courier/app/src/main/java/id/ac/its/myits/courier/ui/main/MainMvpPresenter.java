@@ -14,7 +14,10 @@ public interface MainMvpPresenter <V extends MainMvpView & MvpView> extends MvpP
     void test();
 
     UserInfo getUserInfo();
+
     void getUnits(String username);
-    void getAllHistory(String username);
-    void getTodayHistory(String username);
+
+    void getAllHistory();
+
+    void getTodayHistory();
 }

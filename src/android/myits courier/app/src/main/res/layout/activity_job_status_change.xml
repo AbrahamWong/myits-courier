@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="@string/change_packet_status"
+            android:text="@string/change_package_status"
             android:textColor="@color/colorGrey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,35 +52,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeStatusLabel">
 
-            <RadioButton
-                android:id="@+id/status_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/paket_sudah_dijemput" />
-
-            <RadioButton
-                android:id="@+id/status_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/paket_sedang_diantar" />
-
-            <RadioButton
-                android:id="@+id/status_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/paket_sudah_sampai" />
-
-            <RadioButton
-                android:id="@+id/status_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/paket_sudah_diterima_pic" />
-
-            <RadioButton
-                android:id="@+id/status_5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/paket_sudah_diterima_pic" />
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

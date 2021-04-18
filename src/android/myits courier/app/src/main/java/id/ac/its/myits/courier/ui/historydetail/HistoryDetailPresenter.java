@@ -69,7 +69,7 @@ public class HistoryDetailPresenter<V extends HistoryMvpView> extends BasePresen
                         JSONObject jsonHistory = history.getJSONObject(i);
                         DetilStatus historyTimeline = new DetilStatus();
                         historyTimeline.setDate(jsonHistory.getString("created_at"));
-                        historyTimeline.setStatus(jsonHistory.getString("riwayat_status"));
+                        historyTimeline.setStatus(jsonHistory.getString("status"));
 
                         historyList.add(historyTimeline);
                     }
@@ -92,22 +92,34 @@ public class HistoryDetailPresenter<V extends HistoryMvpView> extends BasePresen
 
     private DetilRiwayat retrieveFromJSON(JSONObject object) throws JSONException {
         DetilRiwayat history = new DetilRiwayat();
+        String jenisPaket;
 
         history.setId(object.getInt("id"));
         history.setKodePaket(object.getString("kode"));
         history.setNamaPetugas(object.getString("nama_petugas"));
-        history.setStatus(object.getString("STATUS"));
+        history.setStatus(object.getString("status_string"));
         history.setBeratMinimal(object.getInt("berat_minimal"));
         history.setBeratMaksimal(object.getInt("berat_maksimal"));
         history.setDeskripsi(object.getString("deskripsi"));
         history.setJumlahPaket(object.getInt("jumlah"));
-        history.setJenisPaket(object.getString("jenis"));
-        history.setNamaUnit(object.getString("nama_unit"));
-        AppLogger.d("Get nama unit: %s", history.getNamaUnit());
+
+        jenisPaket = object.getString("jenis");
+        history.setJenisPaket(jenisPaket);
+
+        if (jenisPaket.equals("Eksternal")) {
+            history.setNamaUnitAsal(null);
+            history.setNamaUnitTujuan(object.getString("nama_unit"));
+        } else {
+            history.setNamaUnitAsal(object.getString("nama_unit_asal"));
+            history.setNamaUnitTujuan(object.getString("nama_unit_tujuan"));
+        }
+
+        AppLogger.d("Get nama unit: %s ke %s", history.getNamaUnitAsal(), history.getNamaUnitTujuan());
 
         return history;
     }
 }
+
 class DetilRiwayat {
     int id;
     String jenisPaket;
@@ -116,7 +128,8 @@ class DetilRiwayat {
     String status;
     int beratMinimal, beratMaksimal;
     String deskripsi;
-    String namaUnit;
+    String namaUnitAsal;
+    String namaUnitTujuan;
     int jumlahPaket;
 
     public int getId() {
@@ -183,19 +196,27 @@ class DetilRiwayat {
         this.deskripsi = deskripsi;
     }
 
-    public String getNamaUnit() {
-        return namaUnit;
-    }
-
-    public void setNamaUnit(String namaUnit) {
-        this.namaUnit = namaUnit;
-    }
-
     public int getJumlahPaket() {
         return jumlahPaket;
     }
 
     public void setJumlahPaket(int jumlahPaket) {
         this.jumlahPaket = jumlahPaket;
+    }
+
+    public String getNamaUnitAsal() {
+        return namaUnitAsal;
+    }
+
+    public void setNamaUnitAsal(String namaUnitAsal) {
+        this.namaUnitAsal = namaUnitAsal;
+    }
+
+    public String getNamaUnitTujuan() {
+        return namaUnitTujuan;
+    }
+
+    public void setNamaUnitTujuan(String namaUnitTujuan) {
+        this.namaUnitTujuan = namaUnitTujuan;
     }
 }

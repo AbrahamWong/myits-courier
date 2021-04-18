@@ -1,6 +1,7 @@
 package id.ac.its.myits.courier.ui.qr;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import id.ac.its.myits.courier.data.DataManager;
 import id.ac.its.myits.courier.data.db.model.PaketInternal;
 import id.ac.its.myits.courier.ui.base.BasePresenter;
+import id.ac.its.myits.courier.ui.proof.ProofActivity;
 import id.ac.its.myits.courier.utils.AppLogger;
 import id.ac.its.myits.courier.utils.Statics;
 import id.ac.its.myits.courier.utils.rx.SchedulerProvider;
@@ -118,13 +120,6 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                 });
             }
         });
-
-//        scannerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                scanner.startPreview();
-//            }
-//        });
     }
 
     @Override
@@ -148,6 +143,7 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                     paket.setIdPaket(jsonObject.getInt("id_paket"));
                     paket.setKodeInternal(kodeInternal);
                     paket.setStatus(jsonObject.getString("STATUS"));
+                    paket.setBedaZona(jsonObject.getInt("is_beda_zona") == 1);
 
                     Statics.packageCode = paket.getKodeInternal();
 
@@ -182,29 +178,30 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
 
     void changeStatus(PaketInternal paketInternal, ArrayList<String> statuses) {
 
-        String statusPosted = "nothing, because the internal status is invalid";
-        boolean needToChange = true;
+        // Ganti status berdasarkan status sebelumnya dan apakah asal dan
+        // tujuan paket berada di zona yang sama
+        String statusPosted = null;
         if (!statuses.isEmpty()) {
-            if (paketInternal.getStatus().equals(statuses.get(0))) statusPosted = statuses.get(1);
+            // Jika status paket adalah "Paket Internal Siap Dijemput"
+            if (paketInternal.getStatus().equals(statuses.get(0)))
+                statusPosted = "2";
 
-                // Seharusnya ini pilihan, jika paket internal memiliki tempat asal dan tujuan yang
-                // zonanya sama, atau dalam Java,  (getZona() tidak ada)
-                //          if (paketInternal.getStatus().equals(statuses.get(1))
-                //                  && paketInternal.getZona() == Statics.userZone)
-                // pilih status.get(2), jika zonanya berbeda, pilih status.get(3)
+                // Jika status paket adalah "Paket Internal Sedang Menunggu Dijemput Caraka"
             else if (paketInternal.getStatus().equals(statuses.get(1)))
-                statusPosted = statuses.get(2);
-            else if (paketInternal.getStatus().equals(statuses.get(2)))
-                statusPosted = statuses.get(3);
+                // Kode yang dikirimkan adalah:
+                // Jika zona unit asal dan unit tujuan berbeda  = 3
+                // Jika zona unit asal dan unit tujuan sama     = 4
+                statusPosted = paketInternal.isBedaZona() ? "3" : "4";
 
-            else if (paketInternal.getStatus().equals(statuses.get(3)))
-                statusPosted = statuses.get(4);
-            else if (paketInternal.getStatus().equals(statuses.get(4))) needToChange = false;
-            else needToChange = false;
+                // Jika status paket antara "Paket Internal Sedang Dikirim ke TU Tujuan"
+                // atau "Paket Internal Sedang Dikirim ke TU Pusat", status berikutnya adalah
+                // "Paket Internal Sudah Diterima TU Tujuan"
+            else if (paketInternal.getStatus().equals(statuses.get(2)) || paketInternal.getStatus().equals(statuses.get(3)))
+                statusPosted = "5";
+            else statusPosted = null;
         }
 
-
-        if (needToChange && !statusPosted.equals("nothing, because the internal status is invalid")) {
+        if (statusPosted != null) {
             String finalStatusPosted = statusPosted;
             getDataManager().postInternalJobEdit(paketInternal.getKodeInternal(), finalStatusPosted, new OkHttpResponseListener() {
                 @Override
@@ -212,6 +209,12 @@ public class QrPresenter<V extends QrMvpView> extends BasePresenter<V>
                     if (response.code() == 200) {
                         AppLogger.d("%d says: Success, Returning to the main activity.", response.code());
                         getMvpView().showMessage("Status paket berhasil diubah menjadi: " + finalStatusPosted);
+
+                        if (finalStatusPosted.equals("5"))
+                            getMvpView().getQrActivity().startActivity(
+                                    new Intent(getMvpView().getQrActivity(),
+                                            ProofActivity.class)
+                            );
                     }
                 }
 

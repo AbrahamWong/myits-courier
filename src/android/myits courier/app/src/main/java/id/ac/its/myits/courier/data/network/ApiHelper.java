@@ -19,13 +19,15 @@ public interface ApiHelper {
 
     Observable<UserInfo> doGetUserInfo();
 
-    Observable<JSONObject> getUnitList(String username);
+    Observable<JSONObject> getUnitList();
 
-    Observable<JSONObject> getAllHistory(String username);
-    Observable<JSONObject> getTodayHistory(String username);
+    Observable<JSONObject> getAllHistory();
+
+    Observable<JSONObject> getTodayHistory();
+
     Observable<JSONObject> getHistoryDetail(String kodePaket);
 
-    Observable<JSONArray> getUnitDetail(String username, int unitId);
+    Observable<JSONArray> getUnitDetail(int unitId);
 
     Observable<JSONArray> getExternalJobDetail(int idEksternal);
 

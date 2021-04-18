@@ -12,7 +12,5 @@ public interface JobMvpView extends MvpView {
 
     void setAllInternalText(PaketInternal paket);
 
-    void onUnitIdRetrieved(int idUnit);
-
     void goBack(String username, int idUnit);
 }

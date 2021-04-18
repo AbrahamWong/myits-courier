@@ -65,7 +65,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
         View separatorVertical;
         @BindView(R.id.separatorHorizontal)
         View separatorHorizontal;
-        @BindView(R.id.packetIcon)
+        @BindView(R.id.packageIcon)
         View packageIcon;
         @BindView(R.id.personIcon)
         View staffIcon;
@@ -100,6 +100,12 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
         @BindView(R.id.shiftText)
         TextView courierShift;
 
+        @BindView(R.id.packageFrom)
+        TextView packageSource;
+
+        @BindView(R.id.packageTo)
+        TextView packageDestination;
+
         public JobListVH(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -121,6 +127,9 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
                     pekerjaan.getJumlahPaket()));
             staffName.setText(pekerjaan.getNamaPetugas());
             courierShift.setText(pekerjaan.getPackageShift());
+
+            packageSource.setText(itemView.getResources().getString(R.string.package_from, pekerjaan.getUnitAsal()));
+            packageDestination.setText(itemView.getResources().getString(R.string.package_to, pekerjaan.getUnitTujuan()));
         }
 
         void changeInternalTheme() {
@@ -145,6 +154,9 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
 
             packageIcon.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorPrimary)));
             staffIcon.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorPrimary)));
+
+            packageSource.setTextColor(ContextCompat.getColor(ctx, R.color.colorWhite));
+            packageDestination.setTextColor(ContextCompat.getColor(ctx, R.color.colorWhite));
         }
 
         void changeExternalTheme() {
@@ -170,6 +182,9 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobListV
 
             packageIcon.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorSecondary)));
             staffIcon.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorSecondary)));
+
+            packageSource.setTextColor(ContextCompat.getColor(ctx, R.color.colorWhite));
+            packageDestination.setTextColor(ContextCompat.getColor(ctx, R.color.colorWhite));
         }
     }
 }

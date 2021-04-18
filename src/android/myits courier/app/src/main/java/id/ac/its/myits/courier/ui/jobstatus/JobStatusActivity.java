@@ -37,17 +37,6 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     @BindView(R.id.statusRadioGroup)
     RadioGroup statusRadioGroup;
 
-    @BindView(R.id.status_1)
-    RadioButton status1;
-    @BindView(R.id.status_2)
-    RadioButton status2;
-    @BindView(R.id.status_3)
-    RadioButton status3;
-    @BindView(R.id.status_4)
-    RadioButton status4;
-    @BindView(R.id.status_5)
-    RadioButton status5;
-
     @BindView(R.id.changeStatusLabel)
     TextView changeStatusLabel;
 
@@ -55,6 +44,8 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
     Button confirmStatusButton;
 
     private String deliveryType;
+    private ArrayList<RadioButton> radioButtons;
+    private boolean isBedaZona;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,16 +68,17 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         deliveryType = getIntent().getStringExtra("TIPE_PAKET");
+        isBedaZona = getIntent().getBooleanExtra("BEDA_ZONA", false);
         AppLogger.d("%s adalah tipe paket", deliveryType);
 
         String statusLabel = String.format(Locale.getDefault(),
                 "%s %s",
-                getResources().getText(R.string.change_packet_status),
+                getResources().getText(R.string.change_package_status),
                 deliveryType);
         changeStatusLabel.setText(statusLabel);
         if (deliveryType.equals("Eksternal")) {
             mPresenter.getExternalStatuses();
-        } else if (deliveryType.equals("Internal")) {
+        } else if (deliveryType.split("\\s+")[0].equals("Internal")) {
             mPresenter.getInternalStatuses();
         }
     }
@@ -119,88 +111,73 @@ public class JobStatusActivity extends BaseActivity implements JobStatusMvpView 
 
     @Override
     public void onExternalListGet(ArrayList<String> status) {
-        status1.setText(status.get(0));
-        status2.setText(status.get(1));
-        status3.setText(status.get(2));
-        status4.setVisibility(View.GONE);
-        status5.setVisibility(View.GONE);
+        radioButtons = mPresenter.createRadioButtons(status, statusRadioGroup);
 
-        String jobStatus = getIntent().getStringExtra("STATUS");
-        if (status.get(0).equals(jobStatus)) {
-            status1.setChecked(true);
-        } else if (status.get(1).equals(jobStatus)) {
-            status2.setChecked(true);
-        } else if (status.get(2).equals(jobStatus)) {
-            status3.setChecked(true);
+        for (RadioButton rb : radioButtons) {
+            String radioText = rb.getText().toString();
+            String intentStatus = getIntent().getStringExtra("STATUS");
+
+            // Lakukan karena semua status berformat "Paket Eksternal....", ada "l" sebelum status asli.
+            rb.setChecked(radioText.equals(intentStatus.substring(intentStatus.lastIndexOf('l') + 2)));
         }
     }
 
     @Override
     public void onInternalListGet(ArrayList<String> status) {
-        status1.setText(status.get(0));
-        status2.setText(status.get(1));
-        status3.setText(status.get(2));
-        status4.setText(status.get(3));
-        status5.setVisibility(View.GONE);
+        radioButtons = mPresenter.createRadioButtons(status, statusRadioGroup);
 
-        String jobStatus = getIntent().getStringExtra("STATUS");
-        String newStatus = jobStatus.substring(jobStatus.indexOf(" ", 6) + 1);
-        if (status.get(0).equals(newStatus)) {
-            status1.setChecked(true);
-        } else if (status.get(1).equals(newStatus)) {
-            status2.setChecked(true);
-        } else if (status.get(2).equals(newStatus)) {
-            status3.setChecked(true);
-        } else if (status.get(3).equals(newStatus)) {
-            status4.setChecked(true);
-        } else if (status.get(4).equals(newStatus)) {
-            status5.setChecked(true);
+        for (RadioButton rb : radioButtons) {
+            String radioText = rb.getText().toString();
+            String intentStatus = getIntent().getStringExtra("STATUS");
+
+            // Lakukan karena semua status berformat "Paket Internal....", ada "l" sebelum status asli.
+            rb.setChecked(radioText.equals(intentStatus.substring(intentStatus.lastIndexOf('l') + 2)));
+
+            if (!isBedaZona) { // Sembunyikan status nomor 3 dan 4
+                statusRadioGroup.getChildAt(2).setVisibility(View.GONE);
+                statusRadioGroup.getChildAt(3).setVisibility(View.GONE);
+            }
         }
+    }
+
+    @Override
+    public RadioButton onRadioButtonRequested() {
+        return new RadioButton(this);
     }
 
     private void changeStatus(String deliveryType, RadioButton selectedRadio) {
         String kodePaket = getIntent().getStringExtra("KODE_PAKET");
         int idPaket = getIntent().getIntExtra("ID_PAKET", 0);
 
+        AppLogger.d("KODE_INTERNAL: %s", kodePaket);
         Intent homeIntent = new Intent(JobStatusActivity.this, MainActivity.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
 
+        // Karena RadioButton dibuat secara automatis, kita tidak dapat memantau setiap
+        // RadioButton menggunakan id. Karena itu...
+        int rbindex = statusRadioGroup.indexOfChild(selectedRadio);
         switch (deliveryType) {
-            case "Internal":
-                switch (selectedRadio.getId()) {
-                    case R.id.status_1:
-                        mPresenter.postInternalStatus(kodePaket, "1");
-                        break;
-                    case R.id.status_2:
-                        mPresenter.postInternalStatus(kodePaket, "2");
-                        break;
-                    case R.id.status_3:
-                        mPresenter.postInternalStatus(kodePaket, "3");
-                        break;
-                    case R.id.status_4:
-                        mPresenter.postInternalStatus(kodePaket, "4");
-                        break;
-                    case R.id.status_5:
-                        startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
-                        mPresenter.postInternalStatus(kodePaket, "5");
-                        break;
+            // Status Internal ada 2, Internal Penjemputan dan Internal Pengantaran
+            case "Internal Penjemputan":
+            case "Internal Pengantaran":
+
+                // Jika zona unit asal dan tujuan sama (false), status yang dipakai hanya 1, 2, 5, dan 6.
+                // Jika zona unit asal dan tujuan beda (true), status yang dipakai 1 - 6.
+                if (!isBedaZona && rbindex == 2) {
+                    mPresenter.postInternalStatus(kodePaket, "5");
+                } else {
+                    mPresenter.postInternalStatus(kodePaket, String.valueOf(rbindex + 1));
                 }
+
+                if (rbindex + 1 == radioButtons.size())
+                    startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
+
                 break;
             case "Eksternal":
-                switch (selectedRadio.getId()) {
-                    case R.id.status_1:
-                        mPresenter.postExternalStatus(idPaket, "1");
-                        break;
-                    case R.id.status_2:
-                        mPresenter.postExternalStatus(idPaket, "2");
-                        break;
-                    case R.id.status_3:
-                        startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
-                        mPresenter.postExternalStatus(idPaket, "3");
-                        break;
-                }
-                break;
+                mPresenter.postExternalStatus(idPaket, String.valueOf(rbindex + 1));
+                if (rbindex + 1 == radioButtons.size())
+                    startActivity(new Intent(JobStatusActivity.this, ProofActivity.class));
         }
     }
 }

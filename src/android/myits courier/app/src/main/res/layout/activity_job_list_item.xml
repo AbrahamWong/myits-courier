@@ -79,7 +79,7 @@
             <View
                 android:id="@+id/separatorVertical"
                 android:layout_width="2dp"
-                android:layout_height="64dp"
+                android:layout_height="104dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ic_line_separator_vertical_rounded"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:maxLines="2"
-                android:text="@string/code_packet_text"
+                android:text="@string/code_package_text"
                 app:layout_constraintStart_toEndOf="@+id/kodeLabel"
                 app:layout_constraintTop_toBottomOf="@+id/deliveryTypeText" />
 
@@ -142,6 +142,30 @@
                 app:layout_constraintStart_toEndOf="@+id/shiftLabel"
                 app:layout_constraintTop_toBottomOf="@+id/kodeText" />
 
+            <TextView
+                android:id="@+id/packageFrom"
+                style="@style/TextAppearance.MyITSCourier.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/package_from"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/separatorVertical"
+                app:layout_constraintTop_toBottomOf="@id/shiftLabel" />
+
+            <TextView
+                android:id="@+id/packageTo"
+                style="@style/TextAppearance.MyITSCourier.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/package_to"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/separatorVertical"
+                app:layout_constraintTop_toBottomOf="@id/packageFrom" />
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
@@ -163,9 +187,10 @@
                     android:orientation="horizontal">
 
                     <View
-                        android:id="@+id/packetIcon"
+                        android:id="@+id/packageIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/ic_box_24"
                         android:backgroundTint="@color/colorJustGrey" />
 
@@ -174,16 +199,15 @@
                         style="@style/TextAppearance.MyITSCourier.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/num_of_package"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="2dp"
-                        android:text="@string/num_of_packet_text"
                         android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal">
@@ -192,6 +216,7 @@
                         android:id="@+id/personIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/ic_outline_person_outline_24"
                         android:backgroundTint="@color/colorJustGrey" />
 

@@ -55,14 +55,13 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ListVi
                 String.format(Locale.getDefault(), "%d Paket Eksternal" +
                                 "\n%d Penjemputan Paket Internal" +
                                 "\n%d Pengantaran Paket Internal",
-                        numOfExternalJobs.get(position), numOfInternalOutJobs.get(position), numOfInternalInJobs.get(position)));
+                        numOfExternalJobs.get(position), numOfInternalInJobs.get(position), numOfInternalOutJobs.get(position)));
 
         holder.itemView.setOnClickListener(view -> {
             Context ctx = view.getContext();
             Intent jobListIntent = new Intent(ctx, JobListActivity.class);
-            jobListIntent.putExtra("ID_UNIT", unitId.get(position));
+            Statics.currentUnitId = unitId.get(position);
             Statics.unitName = unitName.get(position);
-            jobListIntent.putExtra("USERNAME", Statics.username);
             ctx.startActivity(jobListIntent);
         });
     }

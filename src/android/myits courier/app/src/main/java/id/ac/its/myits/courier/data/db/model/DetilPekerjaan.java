@@ -21,6 +21,10 @@ public class DetilPekerjaan {
     private String jamAkhir;
     private int terlambat;
 
+    // Unit asal dan Unit tujuan
+    private String unitAsal;
+    private String unitTujuan;
+
     public DetilPekerjaan() {
     }
 
@@ -90,11 +94,16 @@ public class DetilPekerjaan {
 
     public Date getTanggalAsDate() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy hh:mm:ss:a", Locale.getDefault());
             return sdf.parse(tanggal);
         } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM  d yyyy hh:mm:ss:a", Locale.getDefault());
+                return sdf.parse(tanggal);
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+                return null;
+            }
         }
     }
 
@@ -124,14 +133,18 @@ public class DetilPekerjaan {
     }
 
     public String getPackageShift() {
+
+        SimpleDateFormat nsdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            SimpleDateFormat nsdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy hh:mm:ss:a", Locale.getDefault());
 
             return String.format("%s, %s - %s",
                     nsdf.format(sdf.parse(tanggalPengiriman)),
-                    jamAwal.substring(0, jamAwal.length() - 3),
-                    jamAkhir.substring(0, jamAkhir.length() - 3));
+//                    jamAwal.substring(0, jamAwal.length() - 3),
+//                    jamAkhir.substring(0, jamAkhir.length() - 3));
+                    jamAwal,
+                    jamAkhir);
         } catch (ParseException pe) {
             pe.printStackTrace();
             return null;
@@ -144,5 +157,21 @@ public class DetilPekerjaan {
 
     public void setTerlambat(int terlambat) {
         this.terlambat = terlambat;
+    }
+
+    public String getUnitAsal() {
+        return unitAsal;
+    }
+
+    public void setUnitAsal(String unitAsal) {
+        this.unitAsal = unitAsal;
+    }
+
+    public String getUnitTujuan() {
+        return unitTujuan;
+    }
+
+    public void setUnitTujuan(String unitTujuan) {
+        this.unitTujuan = unitTujuan;
     }
 }

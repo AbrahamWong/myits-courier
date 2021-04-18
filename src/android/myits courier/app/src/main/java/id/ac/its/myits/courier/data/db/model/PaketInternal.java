@@ -12,12 +12,15 @@ public class PaketInternal implements Parcelable {
     private int berat_maksimal;
     private int jumlah_paket;
     private String deskripsi;
-    private String namaUnit;
+    private String namaUnitAsal;
+    private String namaUnitTujuan;
+
+    private boolean isBedaZona;
 
     public PaketInternal() {
     }
 
-    public PaketInternal(int idPaket, String kodeInternal, String nama_tu, String status, int berat_minimal, int berat_maksimal, int jumlah_paket, String deskripsi) {
+    public PaketInternal(int idPaket, String kodeInternal, String nama_tu, String status, int berat_minimal, int berat_maksimal, int jumlah_paket, String deskripsi, String namaUnitAsal, String namaUnitTujuan, boolean isBedaZona) {
         this.idPaket = idPaket;
         this.kodeInternal = kodeInternal;
         this.nama_tu = nama_tu;
@@ -26,6 +29,9 @@ public class PaketInternal implements Parcelable {
         this.berat_maksimal = berat_maksimal;
         this.jumlah_paket = jumlah_paket;
         this.deskripsi = deskripsi;
+        this.namaUnitAsal = namaUnitAsal;
+        this.namaUnitTujuan = namaUnitTujuan;
+        this.isBedaZona = isBedaZona;
     }
 
     protected PaketInternal(Parcel in) {
@@ -136,11 +142,27 @@ public class PaketInternal implements Parcelable {
         return CREATOR;
     }
 
-    public String getNamaUnit() {
-        return namaUnit;
+    public String getNamaUnitAsal() {
+        return namaUnitAsal;
     }
 
-    public void setNamaUnit(String namaUnit) {
-        this.namaUnit = namaUnit;
+    public void setNamaUnitAsal(String namaUnitAsal) {
+        this.namaUnitAsal = namaUnitAsal;
+    }
+
+    public String getNamaUnitTujuan() {
+        return namaUnitTujuan;
+    }
+
+    public void setNamaUnitTujuan(String namaUnitTujuan) {
+        this.namaUnitTujuan = namaUnitTujuan;
+    }
+
+    public boolean isBedaZona() {
+        return isBedaZona;
+    }
+
+    public void setBedaZona(boolean bedaZona) {
+        isBedaZona = bedaZona;
     }
 }

@@ -69,7 +69,7 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
                     Statics.userSsoId = userInfo.getUserdata().getIdSSO();
                     Statics.userZone = userInfo.getUserdata().getZonaCaraka();
 
-                    getUnits(userInfo.getUserdata().getUsername());
+                    getUnits(Statics.username);
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
                         getMvpView().showMessage("Terjadi kesalahan! Mohon untuk mengulang kembali.");
@@ -82,7 +82,7 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
     @Override
     public void getUnits(String username) {
         getMvpView().showLoading(null, null);
-        getDataManager().getUnitList(username)
+        getDataManager().getUnitList()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(jsonObject -> {
@@ -122,8 +122,8 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void getAllHistory(String username) {
-        getDataManager().getAllHistory(username)
+    public void getAllHistory() {
+        getDataManager().getAllHistory()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(jsonObject -> {
@@ -163,8 +163,8 @@ public class MainPresenter  <V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void getTodayHistory(String username) {
-        getDataManager().getTodayHistory(username)
+    public void getTodayHistory() {
+        getDataManager().getTodayHistory()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(jsonObject -> {

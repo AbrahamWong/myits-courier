@@ -87,7 +87,6 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     Statics.packageCode = paket.getKodeEksternal();
 
                     getMvpView().setAllExternalText(paket);
-                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit"));
                     getMvpView().hideLoading();
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {
@@ -115,12 +114,13 @@ public class JobPresenter<V extends JobMvpView> extends BasePresenter<V>
                     paket.setBerat_minimal(jsonObject.getInt("berat_minimal"));
                     paket.setBerat_maksimal(jsonObject.getInt("berat_maksimal"));
                     paket.setDeskripsi(jsonObject.getString("deskripsi"));
-                    paket.setNamaUnit(jsonObject.getString("nama_unit_asal"));
+                    paket.setNamaUnitAsal(jsonObject.getString("nama_unit_asal"));
+                    paket.setNamaUnitTujuan(jsonObject.getString("nama_unit_tujuan"));
+                    paket.setBedaZona(jsonObject.getInt("is_beda_zona") == 1);
 
                     Statics.packageCode = paket.getKodeInternal();
 
                     getMvpView().setAllInternalText(paket);
-                    getMvpView().onUnitIdRetrieved(jsonObject.getInt("id_unit_asal"));
                     getMvpView().hideLoading();
                 }, throwable -> {
                     if (getMvpView().isNetworkConnected()) {

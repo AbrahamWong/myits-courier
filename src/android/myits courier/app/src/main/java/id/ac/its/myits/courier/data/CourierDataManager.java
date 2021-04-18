@@ -171,18 +171,18 @@ public class CourierDataManager implements DataManager {
     }
 
     @Override
-    public Observable<JSONObject> getUnitList(String username) {
-        return mApiHelper.getUnitList(username);
+    public Observable<JSONObject> getUnitList() {
+        return mApiHelper.getUnitList();
     }
 
     @Override
-    public Observable<JSONObject> getAllHistory(String username) {
-        return mApiHelper.getAllHistory(username);
+    public Observable<JSONObject> getAllHistory() {
+        return mApiHelper.getAllHistory();
     }
 
     @Override
-    public Observable<JSONObject> getTodayHistory(String username) {
-        return mApiHelper.getTodayHistory(username);
+    public Observable<JSONObject> getTodayHistory() {
+        return mApiHelper.getTodayHistory();
     }
 
     @Override
@@ -191,8 +191,8 @@ public class CourierDataManager implements DataManager {
     }
 
     @Override
-    public Observable<JSONArray> getUnitDetail(String username, int unitId) {
-        return mApiHelper.getUnitDetail(username, unitId);
+    public Observable<JSONArray> getUnitDetail(int unitId) {
+        return mApiHelper.getUnitDetail(unitId);
     }
 
     @Override

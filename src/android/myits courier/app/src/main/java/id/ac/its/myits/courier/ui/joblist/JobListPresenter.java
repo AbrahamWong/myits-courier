@@ -37,12 +37,15 @@ public class JobListPresenter<V extends JobListMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void getUnitDetails(String username, int unitId) {
+    public void getUnitDetails(int unitId) {
         getMvpView().showLoading(null, null);
-        getDataManager().getUnitDetail(username, unitId).subscribeOn(getSchedulerProvider().io())
+        getDataManager().getUnitDetail(unitId).subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(jsonArray -> {
-                    ArrayList<DetilPekerjaan> jobList = new ArrayList<>();
+
+                    ArrayList<DetilPekerjaan> jobFromUnit = new ArrayList<>();
+                    ArrayList<DetilPekerjaan> jobToUnit = new ArrayList<>();
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         DetilPekerjaan jobDetail = new DetilPekerjaan();
@@ -51,17 +54,26 @@ public class JobListPresenter<V extends JobListMvpView> extends BasePresenter<V>
                         jobDetail.setKodePaket(jsonObject.getString("kode"));
                         jobDetail.setNamaPetugas(jsonObject.getString("nama_petugas"));
                         jobDetail.setJumlahPaket(jsonObject.getInt("jumlah"));
-                        jobDetail.setJenisPaket(jsonObject.getString("jenis"));
+                        jobDetail.setJenisPaket(jsonObject.getString("jenis_detail"));
 
                         jobDetail.setTanggalPengiriman(jsonObject.getString("tanggal_pengiriman"));
                         jobDetail.setJamAwal(jsonObject.getString("jam_mulai"));
                         jobDetail.setJamAkhir(jsonObject.getString("jam_selesai"));
                         jobDetail.setTerlambat(jsonObject.getInt("is_telat"));
 
-                        jobList.add(jobDetail);
+                        jobDetail.setUnitAsal(jsonObject.getString("unit_asal"));
+                        jobDetail.setUnitTujuan(jsonObject.getString("unit_tujuan"));
+
+                        String[] jobSplit = jsonObject.getString("jenis_detail").split("\\s+");
+                        if (jobDetail.getJenisPaket().equals("Eksternal") || jobSplit[jobSplit.length - 1].trim().equals("Pengantaran"))
+                            jobToUnit.add(jobDetail);
+                        else jobFromUnit.add(jobDetail);
                     }
-                    JobListAdapter adapter = new JobListAdapter(jobList);
-                    getMvpView().onDetailRetrieved(adapter);
+
+                    JobListAdapter toAdapter = new JobListAdapter(jobToUnit);
+                    JobListAdapter fromAdapter = new JobListAdapter(jobFromUnit);
+                    getMvpView().jobToUnitRetrieved(toAdapter);
+                    getMvpView().jobFromUnitRetrieved(fromAdapter);
                     getMvpView().hideLoading();
 
                 }, throwable -> {

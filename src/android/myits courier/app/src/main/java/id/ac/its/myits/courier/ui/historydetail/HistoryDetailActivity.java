@@ -1,6 +1,7 @@
 package id.ac.its.myits.courier.ui.historydetail;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -32,9 +33,6 @@ public class HistoryDetailActivity extends BaseActivity implements HistoryMvpVie
     @BindView(R.id.kodeText)
     TextView kodeText;
 
-    @BindView(R.id.unitNameText)
-    TextView unitNameText;
-
     @BindView(R.id.picText)
     TextView picText;
 
@@ -52,6 +50,16 @@ public class HistoryDetailActivity extends BaseActivity implements HistoryMvpVie
 
     @BindView(R.id.timelineRecyclerView)
     RecyclerView timelineRecyclerView;
+
+    // View unit asal dan tujuan
+    @BindView(R.id.historyUnitFromLabel)
+    TextView fromLabel;
+    @BindView(R.id.historyPersonIconUnitFrom)
+    View picIconFrom;
+    @BindView(R.id.historyUnitNameFromText)
+    TextView unitFrom;
+    @BindView(R.id.historyUnitNameToText)
+    TextView unitTo;
 
     private String kodePaket;
 
@@ -101,9 +109,12 @@ public class HistoryDetailActivity extends BaseActivity implements HistoryMvpVie
 
     @Override
     public void showHistoryDetails(DetilRiwayat historyDetail, ArrayList<DetilStatus> historyList) {
+        // Cek apakah paket internal atau bukan
+        packageFrom(historyDetail.getJenisPaket().equals("Internal"), historyDetail);
+
         deliveryTypeText.setText(historyDetail.getJenisPaket());
         kodeText.setText(historyDetail.getKodePaket());
-        unitNameText.setText(historyDetail.getNamaUnit());
+        unitTo.setText(historyDetail.getNamaUnitTujuan());
         picText.setText(historyDetail.getNamaPetugas());
         packageStatus.setText(historyDetail.getStatus());
         if (historyDetail.getBeratMinimal() > historyDetail.getBeratMaksimal()) {
@@ -120,5 +131,15 @@ public class HistoryDetailActivity extends BaseActivity implements HistoryMvpVie
 
         mPresenter.plugRecycler(timelineRecyclerView, historyList);
         hideLoading();
+    }
+
+    void packageFrom(boolean isInternal, DetilRiwayat historyDetail) {
+        if (isInternal) {
+            unitFrom.setText(historyDetail.getNamaUnitAsal());
+        } else {
+            fromLabel.setVisibility(View.GONE);
+            picIconFrom.setVisibility(View.GONE);
+            unitFrom.setVisibility(View.GONE);
+        }
     }
 }

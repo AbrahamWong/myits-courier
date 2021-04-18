@@ -10,17 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.its.myits.courier.R;
 import id.ac.its.myits.courier.data.db.model.DetilStatus;
-import id.ac.its.myits.courier.utils.AppLogger;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
@@ -43,24 +38,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         DetilStatus status = detilStatuses.get(position);
-        String simplifiedDate = null, statusDate;
 
         if (!status.getDate().isEmpty()) {
             holder.date.setVisibility(View.VISIBLE);
-
-            statusDate = status.getDate();
-            statusDate = statusDate.substring(0, statusDate.length() - 4).concat("Z");
-            SimpleDateFormat ISODateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.S'Z'", Locale.getDefault());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss", Locale.getDefault());
-            try {
-                Date d = ISODateFormat.parse(statusDate);
-                simplifiedDate = simpleDateFormat.format(d);
-            } catch (ParseException pe) {
-                AppLogger.d("DATE: %s", statusDate);
-                AppLogger.e(pe, "DATE: gagal");
-            }
-
-            holder.date.setText(simplifiedDate);
+            holder.date.setText(status.getDate());
         } else {
             holder.date.setVisibility(View.GONE);
         }

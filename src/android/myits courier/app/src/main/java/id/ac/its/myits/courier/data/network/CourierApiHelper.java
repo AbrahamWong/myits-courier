@@ -43,9 +43,9 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
-    public Observable<JSONObject> getUnitList(String username) {
+    public Observable<JSONObject> getUnitList() {
         return Rx2AndroidNetworking
-                .get(ApiEndpoint.ENDPOINT_COURIER_DASHBOARD + "/" + username)
+                .get(ApiEndpoint.ENDPOINT_COURIER_DASHBOARD)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()
@@ -53,9 +53,9 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
-    public Observable<JSONObject> getAllHistory(String username) {
+    public Observable<JSONObject> getAllHistory() {
         return Rx2AndroidNetworking
-                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_SEMUA + "/" + username)
+                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_SEMUA)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()
@@ -63,9 +63,9 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
-    public Observable<JSONObject> getTodayHistory(String username) {
+    public Observable<JSONObject> getTodayHistory() {
         return Rx2AndroidNetworking
-                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_HARI_INI + "/" + username)
+                .get(ApiEndpoint.ENDPOINT_COURIER_RIWAYAT_HARI_INI)
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()
@@ -83,9 +83,9 @@ public class CourierApiHelper implements ApiHelper{
     }
 
     @Override
-    public Observable<JSONArray> getUnitDetail(String username, int unitId) {
+    public Observable<JSONArray> getUnitDetail(int unitId) {
         return Rx2AndroidNetworking
-                .get(ApiEndpoint.ENDPOINT_COURIER_DAFTAR_PAKET + String.format(Locale.ENGLISH,"/%s/%d", username, unitId))
+                .get(ApiEndpoint.ENDPOINT_COURIER_DAFTAR_PAKET + String.format(Locale.getDefault(), "/%d", unitId))
                 .setTag(MYITS_USER_TAG)
                 .addHeaders(this.getApiHeader().getProtectedApiHeader())
                 .build()

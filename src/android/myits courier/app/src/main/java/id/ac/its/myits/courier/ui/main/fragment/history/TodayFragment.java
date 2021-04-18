@@ -24,7 +24,6 @@ import id.ac.its.myits.courier.di.component.ActivityComponent;
 import id.ac.its.myits.courier.ui.base.BaseFragment;
 import id.ac.its.myits.courier.ui.main.MainMvpPresenter;
 import id.ac.its.myits.courier.ui.main.MainMvpView;
-import id.ac.its.myits.courier.utils.Statics;
 
 public class TodayFragment extends BaseFragment implements MainMvpView {
 
@@ -67,7 +66,7 @@ public class TodayFragment extends BaseFragment implements MainMvpView {
         TodayRecyclerViewAdapter adapter = new TodayRecyclerViewAdapter(new ArrayList<>(), 0);
         todayList.setAdapter(adapter);
 
-        mPresenter.getTodayHistory(Statics.username != null ? Statics.username : "");
+        mPresenter.getTodayHistory();
     }
 
     @Override

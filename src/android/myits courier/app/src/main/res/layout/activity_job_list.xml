@@ -31,34 +31,115 @@
         <!-- content -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:background="@color/colorBase">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize">
 
-            <!-- nama unit -->
-            <TextView
-                android:id="@+id/unitText"
-                style="@style/TextAppearance.MyITSCourier.Subtitle1"
+            <!-- paket yang ditujukan kepada unit -->
+            <LinearLayout
+                android:id="@+id/unitTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:maxLines="2"
-                android:text="@string/unit_name"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <!-- list pekerjaan -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/jobListRecyclerView"
+                <LinearLayout
+                    android:id="@+id/unitToDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:weightSum="16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/unitToText"
+                        style="@style/TextAppearance.MyITSCourier.Subtitle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15"
+                        android:maxLines="2"
+                        android:text="@string/unit_name_to"
+                        android:textColor="@color/colorBlack" />
+
+                    <ImageView
+                        android:id="@+id/unitToDrop"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_chevron_right_black_36" />
+                </LinearLayout>
+
+
+                <!-- list pekerjaan -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/jobListRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/unitToDescription"
+                    tools:listitem="@layout/activity_job_list_item" />
+
+            </LinearLayout>
+
+            <!-- paket yang berasal dari unit -->
+            <LinearLayout
+                android:id="@+id/unitFrom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/unitText"
-                tools:listitem="@layout/activity_job_list_item" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unitTo">
+
+                <LinearLayout
+                    android:id="@+id/unitFromDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:weightSum="16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/unitFromText"
+                        style="@style/TextAppearance.MyITSCourier.Subtitle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15"
+                        android:maxLines="2"
+                        android:text="@string/unit_name_from"
+                        android:textColor="@color/colorBlack" />
+
+                    <ImageView
+                        android:id="@+id/unitFromDrop"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_chevron_right_black_36" />
+                </LinearLayout>
+
+
+                <!-- list pekerjaan -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/jobListFromRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/unitToDescription"
+                    tools:listitem="@layout/activity_job_list_item" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

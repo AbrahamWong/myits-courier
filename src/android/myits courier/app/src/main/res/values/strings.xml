@@ -53,16 +53,16 @@
     <string name="kode">Kode:\u0020</string>
     <string name="shift">Jadwal Pengiriman:\u0020</string>
     <string name="delivery_status_text">Menunggu dijemput</string>
-    <string name="code_packet_text">ABCDEG6H788</string>
+    <string name="code_package_text">ABCDEG6H788</string>
     <string name="shift_text">17 Maret 2021, 08:00 – 10:00</string>
     <string name="unit">Unit</string>
-    <string name="pic_packet">PIC Paket</string>
-    <string name="pic_packet_text">Mang Oleh</string>
-    <string name="status_packet">Status Paket</string>
-    <string name="weight_packet">Berat Paket</string>
-    <string name="weight_packet_text">2 Kg</string>
-    <string name="num_of_packet">Jumlah Paket</string>
-    <string name="num_of_packet_text">1 Paket</string>
+    <string name="pic_package">PIC Paket</string>
+    <string name="pic_package_text">Mang Oleh</string>
+    <string name="status_package">Status Paket</string>
+    <string name="weight_package">Berat Paket</string>
+    <string name="weight_package_text">2 Kg</string>
+    <string name="num_of_package">Jumlah Paket</string>
+    <string name="num_of_package_text">1 Paket</string>
     <string name="description">Deskripsi</string>
     <string name="description_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae, tellus id egestas porttitor vitae consectetur sagittis convallis.</string>
     <string name="timeline">Linimasa</string>
@@ -70,7 +70,7 @@
     <string name="change_status">Ganti Status</string>
     <string name="status_">Status:\u0020</string>
     <string name="receiver_name_text">Bpk Superman</string>
-    <string name="change_packet_status">Ganti status paket</string>
+    <string name="change_package_status">Ganti status paket</string>
     <string name="paket_sudah_dijemput">Paket sudah dijemput</string>
     <string name="paket_sedang_diantar">Paket sedang diantar</string>
     <string name="paket_sudah_sampai">Paket sudah sampai</string>
@@ -88,6 +88,13 @@
     <string name="unit_name">Unit Teknik Informatika</string>
     <string name="navigation_guide_sub_text">Lalu</string>
     <string name="navigation_guide_main_text">Lurus menuju Jln. Teknik Mesin</string>
-    <string name="pic_packet_navigation_label">PIC Paket :</string>
+    <string name="pic_package_navigation_label">PIC Paket :</string>
 
+
+    <string name="package_from">Dari: %1$s</string>
+    <string name="package_to">Kepada: %1$s</string>
+    <string name="unit_name_to">Paket untuk %1$s</string>
+    <string name="unit_name_from">Paket dari %1$s</string>
+    <string name="unit_from">Unit Asal</string>
+    <string name="unit_to">Unit Tujuan</string>
 </resources>

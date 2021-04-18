@@ -1,5 +1,8 @@
 package id.ac.its.myits.courier.ui.jobstatus;
 
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 
@@ -24,11 +27,6 @@ public class JobStatusPresenter<V extends JobStatusMvpView> extends BasePresente
     }
 
     private String statusPrefix;
-
-    @Override
-    public String getStatusPrefix() {
-        return statusPrefix;
-    }
 
     public void setStatusPrefix(String statusPrefix) {
         this.statusPrefix = statusPrefix;
@@ -125,5 +123,25 @@ public class JobStatusPresenter<V extends JobStatusMvpView> extends BasePresente
                 getMvpView().showMessage("Terjadi kesalahan jaringan.");
             }
         });
+    }
+
+    @Override
+    public ArrayList<RadioButton> createRadioButtons(ArrayList<String> statuses, RadioGroup rg) {
+        ArrayList<RadioButton> arb = new ArrayList<>();
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
+                RadioGroup.LayoutParams.MATCH_PARENT,
+                RadioGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(0, 4, 0, 12);
+
+        for (String status : statuses) {
+            RadioButton rb = getMvpView().onRadioButtonRequested();
+            rb.setText(status);
+            rb.setLayoutParams(params);
+
+            arb.add(rb);
+            rg.addView(rb);
+        }
+
+        return arb;
     }
 }

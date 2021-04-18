@@ -62,26 +62,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="@string/code_packet_text"
+                android:text="@string/code_package_text"
                 android:textColor="@color/colorSecondary"
                 app:layout_constraintStart_toEndOf="@+id/kodeLabel"
                 app:layout_constraintTop_toBottomOf="@+id/deliveryTypeText" />
 
-            <!-- unit -->
+            <!-- unit asal -->
             <TextView
-                android:id="@+id/unitLabel"
+                android:id="@+id/unitLabelFrom"
                 style="@style/TextAppearance.MyITSCourier.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/unit"
+                android:text="@string/unit_from"
                 android:textColor="@color/colorJustGrey"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kodeLabel" />
 
             <View
-                android:id="@+id/personIconUnit"
+                android:id="@+id/personIconUnitFrom"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
@@ -89,19 +89,61 @@
                 android:background="@drawable/ic_outline_person_outline_24"
                 android:backgroundTint="@color/colorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/unitLabelFrom" />
 
             <TextView
-                android:id="@+id/unitNameText"
+                android:id="@+id/unitNameTextFrom"
+                style="@style/TextAppearance.MyITSCourier.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:maxLines="3"
+                android:layout_marginTop="6dp"
+                app:layout_constrainedWidth="true"
+                android:text="@string/unit_name_text"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/personIconUnitFrom"
+                app:layout_constraintTop_toBottomOf="@+id/unitLabelFrom" />
+
+            <!-- unit tujuan -->
+            <TextView
+                android:id="@+id/unitLabelTo"
+                style="@style/TextAppearance.MyITSCourier.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/unit_to"
+                android:textColor="@color/colorJustGrey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/unitNameTextFrom" />
+
+            <View
+                android:id="@+id/personIconUnitTo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/ic_outline_person_outline_24"
+                android:backgroundTint="@color/colorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/unitLabelTo" />
+
+            <TextView
+                android:id="@+id/unitNameTextTo"
                 style="@style/TextAppearance.MyITSCourier.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="6dp"
+                android:maxLines="3"
                 android:text="@string/unit_name_text"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/personIconUnit"
-                app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/personIconUnitTo"
+                app:layout_constraintTop_toBottomOf="@+id/unitLabelTo" />
 
             <!-- PIC & Status Layout -->
             <LinearLayout
@@ -109,13 +151,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                android:baselineAligned="false"
-                app:layout_constraintTop_toBottomOf="@+id/personIconUnit">
+                app:layout_constraintTop_toBottomOf="@+id/personIconUnitTo">
 
                 <!-- PIC Layout -->
                 <LinearLayout
@@ -129,7 +171,7 @@
                         style="@style/TextAppearance.MyITSCourier.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pic_packet"
+                        android:text="@string/pic_package"
                         android:textColor="@color/colorJustGrey" />
 
                     <LinearLayout
@@ -154,7 +196,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="6dp"
-                            android:text="@string/pic_packet_text"
+                            android:text="@string/pic_package_text"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/personIconUnit"
                             app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
@@ -173,7 +215,7 @@
                         style="@style/TextAppearance.MyITSCourier.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/status_packet"
+                        android:text="@string/status_package"
                         android:textColor="@color/colorJustGrey" />
 
                     <androidx.cardview.widget.CardView
@@ -204,12 +246,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                android:baselineAligned="false"
                 app:layout_constraintTop_toBottomOf="@+id/picStatusLinerLayout">
 
                 <!-- Weight Layout -->
@@ -224,7 +266,7 @@
                         style="@style/TextAppearance.MyITSCourier.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/weight_packet"
+                        android:text="@string/weight_package"
                         android:textColor="@color/colorJustGrey" />
 
                     <LinearLayout
@@ -248,8 +290,9 @@
                             style="@style/TextAppearance.MyITSCourier.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp" android:layout_marginTop="6dp"
-                            android:text="@string/weight_packet_text"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/weight_package_text"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/personIconUnit"
                             app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
@@ -268,7 +311,7 @@
                         style="@style/TextAppearance.MyITSCourier.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/num_of_packet"
+                        android:text="@string/num_of_package"
                         android:textColor="@color/colorJustGrey" />
 
                     <LinearLayout
@@ -294,7 +337,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="6dp"
-                            android:text="@string/num_of_packet_text"
+                            android:text="@string/num_of_package_text"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/personIconUnit"
                             app:layout_constraintTop_toBottomOf="@+id/unitLabel" />
